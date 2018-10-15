@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace SoccerTacticBoard
 {
-    public partial class TextViewForm : Form
+    public partial class TextViewForm : Form, IBoardView
     {
         public TextViewForm()
         {
             InitializeComponent();
+        }
+
+        public void RefreshView()
+        {
+            throw new NotImplementedException();
         }
     }
 }

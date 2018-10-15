@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace SoccerTacticBoard
 {
-    public partial class GraphicViewForm : Form
+    public partial class GraphicViewForm : Form, IBoardView
     {
         public GraphicViewForm()
         {
             InitializeComponent();
+        }
+
+        public void RefreshView()
+        {
+            throw new NotImplementedException();
         }
     }
 }
