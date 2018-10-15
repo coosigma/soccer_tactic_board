@@ -11,7 +11,7 @@ namespace SoccerTacticBoard
     /// The model of the project as this is a MVC programme.
     /// </summary>
 {
-    class BoardModel
+    public class BoardModel
     {
         private ArrayList pieceList;
         private BoardController controller;

@@ -12,6 +12,19 @@ namespace SoccerTacticBoard
 {
     public partial class TextViewForm : Form, IBoardView
     {
+        private BoardModel model;
+        // set method for model
+        public BoardModel Model
+        {
+            set
+            {
+                model = value;
+            }
+        }
+
+        /// <summary>
+        /// Constructor
+        /// </summary>
         public TextViewForm()
         {
             InitializeComponent();
