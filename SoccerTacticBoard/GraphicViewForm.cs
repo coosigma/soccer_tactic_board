@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -29,10 +30,36 @@ namespace SoccerTacticBoard
         {
             InitializeComponent();
         }
-
+        /// <summary>Method: RefreshView
+        /// Refresh the View
+        /// </summary>
         public void RefreshView()
         {
-            throw new NotImplementedException();
+            // clear the panel
+            ClearPanel();
+            // redraw all pieces
+            ReDraw();
+        }
+        /// <summary>method: reDraw
+        /// Redraws all the pieces in the model
+        /// </summary>
+        public void ReDraw()
+        {
+            // create arrayList from model
+            ArrayList pieces = model.PieceList;
+            Graphics g = this.pnlField.CreateGraphics();
+            // draw all pieces in array
+            foreach (APiece p in pieces)
+            {
+                p.Draw(g);
+            }
+        }
+        /// <summary>Method: clearPanel
+        /// Clear the Panel
+        /// </summary>
+        public void ClearPanel()
+        {
+            pnlField.Refresh();
         }
     }
 }

@@ -28,20 +28,48 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.btnStart = new System.Windows.Forms.Button();
+            this.btnQuit = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // Form1
+            // btnStart
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.btnStart.Location = new System.Drawing.Point(44, 40);
+            this.btnStart.Name = "btnStart";
+            this.btnStart.Size = new System.Drawing.Size(164, 48);
+            this.btnStart.TabIndex = 0;
+            this.btnStart.Text = "Start Tactic Board";
+            this.btnStart.UseVisualStyleBackColor = true;
+            this.btnStart.Click += new System.EventHandler(this.btnStart_Click);
+            // 
+            // btnQuit
+            // 
+            this.btnQuit.Location = new System.Drawing.Point(44, 140);
+            this.btnQuit.Name = "btnQuit";
+            this.btnQuit.Size = new System.Drawing.Size(164, 48);
+            this.btnQuit.TabIndex = 1;
+            this.btnQuit.Text = "Quit";
+            this.btnQuit.UseVisualStyleBackColor = true;
+            this.btnQuit.Click += new System.EventHandler(this.btnQuit_Click);
+            // 
+            // MainForm
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(569, 454);
-            this.Name = "Form1";
+            this.ClientSize = new System.Drawing.Size(255, 242);
+            this.Controls.Add(this.btnQuit);
+            this.Controls.Add(this.btnStart);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Name = "MainForm";
             this.Text = "Form1";
             this.ResumeLayout(false);
 
         }
 
         #endregion
+
+        private System.Windows.Forms.Button btnStart;
+        private System.Windows.Forms.Button btnQuit;
     }
 }
 
