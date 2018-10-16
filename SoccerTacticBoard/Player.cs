@@ -8,10 +8,13 @@ using System.Drawing.Drawing2D;
 
 namespace SoccerTacticBoard
 {
+    /// <summary>class Player : APiece
+    /// The class describes Player piece
+    /// </summary>
     class Player : APiece
     {
-        private int number;
-        private string fPosition;
+        private int number; // The number of the player
+        private string fPosition; // The field position of the player
         /// <summary>
         /// Constructor
         /// </summary>
@@ -26,6 +29,7 @@ namespace SoccerTacticBoard
             : base(name, x, y, w, h, c)
         {
             this.number = number;
+            fPosition = String.Empty;
         }
         /// <summary>override method: ToString
         /// to display piece as text

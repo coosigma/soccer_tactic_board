@@ -31,6 +31,7 @@ namespace SoccerTacticBoard
             width = w;
             height = h;
             color = c;
+            highlight = false;
         }
         /// <summary>virtual method: Draw
         /// Draw the circle piece
@@ -49,17 +50,18 @@ namespace SoccerTacticBoard
                 {
                     g.FillEllipse(br, x, y, width, height);
                 }
+           
+                // make slightly smaller than shape to avoid shadow
+                float borderDiameter = (Highlight) ? (float)(width) : (float)(width - 3);
+                // draw border around circle
+                Pen p = new Pen(Color.White, 3);
+                p.DashStyle = DashStyle.Solid;
+                // to avoid shadow position move position by 1.5
+                float xFloat = (float)(x + 1.5);
+                float yFloat = (float)(y + 1.5);
+                g.DrawEllipse(p, xFloat, yFloat, borderDiameter, borderDiameter);
+                p.Dispose();
             }
-            // make slightly smaller than shape to avoid shadow
-            float borderDiameter = (Highlight) ? (float)(width) : (float)(width - 3);
-            // draw border around circle
-            Pen p = new Pen(Color.White, 3);
-            p.DashStyle = DashStyle.Solid;
-            // to avoid shadow position move position by 1.5
-            float xFloat = (float)(x + 1.5);
-            float yFloat = (float)(y + 1.5);
-            g.DrawEllipse(p, xFloat, yFloat, borderDiameter, borderDiameter);
-            p.Dispose();
         }
         
 
@@ -99,7 +101,7 @@ namespace SoccerTacticBoard
         /// <returns></returns>
         public virtual bool DebutTest(Rectangle field)
         {
-            Point pt = new Point(x, y);
+            Point pt = new Point(x+(width/2), y+(height/2));
             //default behaviour
             return field.Contains(pt);
         }
