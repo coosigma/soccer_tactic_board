@@ -13,17 +13,17 @@ namespace SoccerTacticBoard
     /// </summary>
     class Ball : APiece
     {
-        public enum ColourOfBall { White, Orange};
-        private ColourOfBall ballImageColour;
+        public enum ImageType { White, Orange};
+        private ImageType ballImage;
         public Ball(string name, int x, int y, int w, int h, Color c, int number)
             : base(name, x, y, w, h, c)
         {
-            ballImageColour = ColourOfBall.White;
+            ballImage = ImageType.White;
         }
-        public ColourOfBall BallImageColour 
+        public ImageType BallImage 
         {
-            get { return ballImageColour; }
-            set { ballImageColour = value; }
+            get { return ballImage; }
+            set { ballImage = value; }
         }
         public override void Draw(Graphics g)
         {
@@ -80,11 +80,11 @@ namespace SoccerTacticBoard
         public Image GetBackImage()
         {
             Image backImage;
-            if (ballImageColour == ColourOfBall.White)
+            if (ballImage == ImageType.White)
             {
                backImage = (Highlight)? Image.FromFile("WhiteBall_big.jpg") : Image.FromFile("WhiteBall.jpg");
             }
-            else if (ballImageColour == ColourOfBall.Orange)
+            else if (ballImage == ImageType.Orange)
             {
                 backImage = (Highlight) ? Image.FromFile("OrangeBall_big.jpg") : Image.FromFile("OrangeBall.jpg");
             }
