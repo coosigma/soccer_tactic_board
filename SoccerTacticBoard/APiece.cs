@@ -39,12 +39,13 @@ namespace SoccerTacticBoard
         /// <param name="g"></param>
         public virtual void Draw(Graphics g) 
         {
+            int line_width = 2;
             if (g != null)
             {
                 Brush br = new SolidBrush(color);
                 if (Highlight) // If selected, draw it bigger
                 {
-                    g.FillEllipse(br, x, y, width + 3, height + 3);
+                    g.FillEllipse(br, x, y, width + line_width, height + line_width);
                 }
                 else
                 {
@@ -52,13 +53,13 @@ namespace SoccerTacticBoard
                 }
            
                 // make slightly smaller than shape to avoid shadow
-                float borderDiameter = (Highlight) ? (float)(width) : (float)(width - 3);
+                float borderDiameter = (Highlight) ? (float)(width) : (float)(width - line_width);
                 // draw border around circle
-                Pen p = new Pen(Color.White, 3);
+                Pen p = new Pen(Color.White, line_width);
                 p.DashStyle = DashStyle.Solid;
                 // to avoid shadow position move position by 1.5
-                float xFloat = (float)(x + 1.5);
-                float yFloat = (float)(y + 1.5);
+                float xFloat = (float)(x + (line_width / 2));
+                float yFloat = (float)(y + (line_width / 2));
                 g.DrawEllipse(p, xFloat, yFloat, borderDiameter, borderDiameter);
                 p.Dispose();
             }

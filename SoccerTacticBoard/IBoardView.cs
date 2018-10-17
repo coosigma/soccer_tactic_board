@@ -9,7 +9,7 @@ namespace SoccerTacticBoard
     /// <summary>
     /// Interface of view
     /// </summary>
-    interface IBoardView
+    public interface IBoardView
     {
         void RefreshView();
     }

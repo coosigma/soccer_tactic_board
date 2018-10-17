@@ -10,7 +10,7 @@ namespace SoccerTacticBoard
     /// <summary>
     /// The controller of the project as this is a MVC programme.
     /// </summary>
-    class BoardController
+    public class BoardController
     {
         private ArrayList ViewList;
         /// <summary>
@@ -33,7 +33,10 @@ namespace SoccerTacticBoard
         {
             foreach (IBoardView v in ViewList)
             {
-                v.RefreshView();
+                if (v.GetType() == typeof(GraphicViewForm))
+                {
+                    v.RefreshView();
+                }
             }
         }
 

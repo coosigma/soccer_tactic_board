@@ -61,5 +61,30 @@ namespace SoccerTacticBoard
         {
             pnlField.Refresh();
         }
+
+        private void teamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int xp = 50;
+            int yp = 50;
+            int w = 25;
+            int h = w;
+            Color c = Color.Blue;
+            for (int i = 1; i <= 11; i++)
+            {
+                string n = "player" + i.ToString();
+                Player player = new Player(n, xp, yp, w, h, c, i);
+                model.AddPiece(player);
+                xp += w;
+            }
+        }
+
+        private void pnlField_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                Point pt = pnlField.PointToScreen(e.Location);
+                cmsField.Show(pt);
+            }
+        }
     }
 }
