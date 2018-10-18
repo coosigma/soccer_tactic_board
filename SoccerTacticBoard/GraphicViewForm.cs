@@ -69,13 +69,15 @@ namespace SoccerTacticBoard
             int w = 25;
             int h = w;
             Color c = Color.Blue;
+            ArrayList pieceBatch = new ArrayList();
             for (int i = 1; i <= 11; i++)
             {
                 string n = "player" + i.ToString();
                 Player player = new Player(n, xp, yp, w, h, c, i);
-                model.AddPiece(player);
+                pieceBatch.Add(player);
                 xp += w;
             }
+            model.AddPieceBatch(pieceBatch);
         }
 
         private void pnlField_MouseClick(object sender, MouseEventArgs e)

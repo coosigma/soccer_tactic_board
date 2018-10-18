@@ -40,6 +40,18 @@ namespace SoccerTacticBoard
             pieceList.Add(aPiece);
             UpdateViews();
         }
+        /// <summary>Method: AddPieceBatch
+        /// Add a batch of piece ot views
+        /// </summary>
+        /// <param name="pieceBatch"></param>
+        public void AddPieceBatch(ArrayList pieceBatch)
+        {
+            foreach (APiece p in pieceBatch)
+            {
+                pieceList.Add(p);
+            }            
+            UpdateViews();
+        }
         /// <summary>method: UpdateShape
         /// Update a piece in the views
         /// </summary>
