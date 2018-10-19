@@ -17,6 +17,9 @@ namespace SoccerTacticBoard
         private bool dragging;
         APiece topPiece; //  variable for selected piece
         APiece editPiece; // variable for piece to edit
+        // variables for mouse position
+        Point lastPosition = new Point(0, 0);
+        Point currentPosition = new Point(0, 0);
         // set method for model
         public BoardModel Model
         {
@@ -185,6 +188,7 @@ namespace SoccerTacticBoard
             if (topPiece != null)
             {
                 System.Console.WriteLine("Left Mouse Up");
+                topPiece.Highlight = false;
                 model.UpdateViews();
                 dragging = false;                
             }
@@ -197,10 +201,17 @@ namespace SoccerTacticBoard
         /// <param name="e"></param>
         private void pnlField_MouseMove(object sender, MouseEventArgs e)
         {
+            // set last position to current position
+            lastPosition = currentPosition;
+            // set current position to mouse position
+            currentPosition = new Point(e.X, e.Y);
+            // calculate how far mouse has moved 
+            int xMove = currentPosition.X - lastPosition.X;
+            int yMove = currentPosition.Y - lastPosition.Y;
             if (dragging)
             {
-                topPiece.x_pos = e.X;
-                topPiece.y_pos = e.Y;
+                topPiece.x_pos += xMove;
+                topPiece.y_pos += yMove;
                 RefreshView();
             }
         }
