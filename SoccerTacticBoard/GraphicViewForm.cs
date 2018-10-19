@@ -87,8 +87,39 @@ namespace SoccerTacticBoard
         {
             if (e.Button == MouseButtons.Right)
             {
-                Point pt = pnlField.PointToScreen(e.Location);
-                cmsField.Show(pt);
+                editPiece = null;
+                ArrayList pl = model.PieceList;
+                for (int i = pl.Count; i > 0; i--)
+                {
+                    APiece p = (APiece)pl[i - 1];
+                    Point m = new Point(e.X, e.Y);                    
+                    if (p.HitTest(m))
+                    {
+                        p.Highlight = true;
+                        Console.WriteLine(p.Name);
+                        editPiece = p;
+                        try
+                        {
+                            APiece pre = (APiece)pl[pl.Count - 1];
+                            if (pre != p)
+                            {
+                                Console.WriteLine(pre.Name);
+                                pre.Highlight = false;
+                            }
+                        }
+                        catch (ArgumentOutOfRangeException){}
+                        model.BringToFront(p);
+                        RefreshView();
+                        Point pt = pnlField.PointToScreen(e.Location);
+                        cmsPiece.Show(pt);
+                        break;
+                    }
+                }
+                if (editPiece == null)
+                {
+                    Point pt = pnlField.PointToScreen(e.Location);
+                    cmsField.Show(pt);
+                }
             }
         }
 
@@ -97,9 +128,7 @@ namespace SoccerTacticBoard
             //if (e.Button == MouseButtons.Left && topPiece != null)
             if (e.Button == MouseButtons.Left)
             {
-                ArrayList pl = model.PieceList;
-                System.Console.WriteLine("Left Mouse Down");               
-                //APiece[] thePeices = (APiece[])pl.ToArray(typeof(APiece));
+                ArrayList pl = model.PieceList; 
                 for (int i = pl.Count; i > 0; i--)
                 {
                     APiece p = (APiece)pl[i - 1];
@@ -109,6 +138,7 @@ namespace SoccerTacticBoard
                     {
                         dragging = true;
                         p.Highlight = true;
+                        topPiece = p;
                         try
                         {
                             APiece pre = (APiece)pl[pl.Count-1];
@@ -118,10 +148,7 @@ namespace SoccerTacticBoard
                                 pre.Highlight = false;
                             }
                         }
-                        catch (ArgumentOutOfRangeException)
-                        {
-
-                        }
+                        catch (ArgumentOutOfRangeException){}
                         model.BringToFront(p);
                         RefreshView();
                         break;
