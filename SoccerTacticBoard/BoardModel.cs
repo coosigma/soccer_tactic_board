@@ -31,7 +31,7 @@ namespace SoccerTacticBoard
                 return pieceList;
             }
         }
-        /// <summary>method: AddShape
+        /// <summary>method: AddPiece
         /// Add a piece to the views
         /// </summary>
         /// <param name="aPiece"></param>
@@ -52,19 +52,19 @@ namespace SoccerTacticBoard
             }            
             UpdateViews();
         }
-        /// <summary>method: UpdateShape
+        /// <summary>method: UpdatePiece
         /// Update a piece in the views
         /// </summary>
         /// <param name="aPiece"></param>
-        public void UpdateShape(APiece aPiece)
+        public void UpdatePiece(APiece aPiece)
         {
             UpdateViews();
         }
-        /// <summary>method: DeleteShape
+        /// <summary>method: DeletePiece
         /// Delete a piece from the views
         /// </summary>
         /// <param name="aPiece"></param>
-        public void DeleteShape(APiece aPiece)
+        public void DeletePiece(APiece aPiece)
         {
             pieceList.Remove(aPiece);
             UpdateViews();
@@ -76,12 +76,12 @@ namespace SoccerTacticBoard
         /// <param name="aPiece"></param>
         public void SendToBack(APiece aPiece)
         {
-            // first shape drawn is at the back			
-            // temp arrayList to resort shapes so selected shape is drawn first
+            // first Piece drawn is at the back			
+            // temp arrayList to resort Pieces so selected Piece is drawn first
             ArrayList sortList = new ArrayList();
-            // find index of shape to be drawn first
+            // find index of Piece to be drawn first
             int max = pieceList.IndexOf(aPiece);
-            // first shape i.e. shape to send to back
+            // first Piece i.e. Piece to send to back
             sortList.Add(aPiece);
             // copy to sortList in correct sequence
             for (int i = 0; i < max; i++)
@@ -89,7 +89,7 @@ namespace SoccerTacticBoard
                 sortList.Add(pieceList[i]);
             }
 
-            // copy sortList back to shapeList
+            // copy sortList back to PieceList
             for (int i = 0; i < sortList.Count; i++)
             {
                 pieceList[i] = sortList[i];
@@ -103,21 +103,21 @@ namespace SoccerTacticBoard
         /// <param name="aPiece"></param>
         public void BringToFront(APiece aPiece)
         {
-            // last shape drawn is at the front			
-            // temp arrayList to resort shapes so selected shape is drawn last
+            // last Piece drawn is at the front			
+            // temp arrayList to resort Pieces so selected Piece is drawn last
             ArrayList sortList = new ArrayList(pieceList);
-            // find index of shape to be drawn last
+            // find index of Piece to be drawn last
             int max = pieceList.IndexOf(aPiece);
-            // find length of shapeList array
+            // find length of PieceList array
             int length = pieceList.Count;
-            // copy shapeList to sortList excluding selected shape
+            // copy PieceList to sortList excluding selected Piece
             for (int i = max + 1; i < length; i++)
             {
                 sortList[i - 1] = pieceList[i];
             }
-            // last shape i.e. shape to bring to front
+            // last Piece i.e. Piece to bring to front
             sortList[length - 1] = pieceList[max];
-            // copy sortList back to shapeList
+            // copy sortList back to PieceList
             for (int i = 0; i < sortList.Count; i++)
             {
                 pieceList[i] = sortList[i];

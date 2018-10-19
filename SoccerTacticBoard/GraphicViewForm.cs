@@ -82,7 +82,11 @@ namespace SoccerTacticBoard
             }
             model.AddPieceBatch(pieceBatch);
         }
-
+        /// <summary>Method: pnlField_MouseClick
+        /// Check the right click menu and set variable to edit status
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pnlField_MouseClick(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Right)
@@ -96,38 +100,49 @@ namespace SoccerTacticBoard
                     if (p.HitTest(m))
                     {
                         p.Highlight = true;
-                        Console.WriteLine(p.Name);
                         editPiece = p;
-                        try
-                        {
-                            APiece pre = (APiece)pl[pl.Count - 1];
-                            if (pre != p)
-                            {
-                                Console.WriteLine(pre.Name);
-                                pre.Highlight = false;
-                            }
-                        }
-                        catch (ArgumentOutOfRangeException){}
                         model.BringToFront(p);
-                        RefreshView();
-                        Point pt = pnlField.PointToScreen(e.Location);
-                        cmsPiece.Show(pt);
                         break;
                     }
                 }
+                try
+                {
+                    APiece pre;
+                    if (editPiece != null)
+                    {
+                        pre = (APiece)pl[pl.Count - 2];
+                    }
+                    else
+                    {
+                        pre = (APiece)pl[pl.Count - 1];
+                    }
+                    pre.Highlight = false;
+                }
+                catch (ArgumentOutOfRangeException) { }
+                RefreshView();
+                Point pt = pnlField.PointToScreen(e.Location);
                 if (editPiece == null)
                 {
-                    Point pt = pnlField.PointToScreen(e.Location);
+                    pt = pnlField.PointToScreen(e.Location);
                     cmsField.Show(pt);
+                } else
+                {
+                    cmsPiece.Show(pt);
                 }
             }
         }
-
+        /// <summary>Method: pnlField_MouseDown
+        /// check if mouse is over piece and set variable to 
+        /// enable piece to be moved
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pnlField_MouseDown(object sender, MouseEventArgs e)
         {
             //if (e.Button == MouseButtons.Left && topPiece != null)
             if (e.Button == MouseButtons.Left)
             {
+                topPiece = null;
                 ArrayList pl = model.PieceList; 
                 for (int i = pl.Count; i > 0; i--)
                 {
@@ -139,30 +154,54 @@ namespace SoccerTacticBoard
                         dragging = true;
                         p.Highlight = true;
                         topPiece = p;
-                        try
-                        {
-                            APiece pre = (APiece)pl[pl.Count-1];
-                            if (pre != p)
-                            {
-                                Console.WriteLine(pre.Name);
-                                pre.Highlight = false;
-                            }
-                        }
-                        catch (ArgumentOutOfRangeException){}
-                        model.BringToFront(p);
-                        RefreshView();
+                        model.BringToFront(topPiece);
                         break;
                     }                    
                 }
+                try
+                {
+                    APiece pre;
+                    if (topPiece != null)
+                    {
+                        pre = (APiece)pl[pl.Count - 2];
+                    }
+                    else
+                    {
+                        pre = (APiece)pl[pl.Count - 1];
+                    }
+                    pre.Highlight = false;
+                }
+                catch (ArgumentOutOfRangeException) { } 
+                RefreshView();
             }                
         }
-
+        /// <summary>Method: pnlField_MouseUp
+        /// method to stop dragging of piece
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pnlField_MouseUp(object sender, MouseEventArgs e)
         {
             if (topPiece != null)
             {
                 System.Console.WriteLine("Left Mouse Up");
-                dragging = false;
+                model.UpdateViews();
+                dragging = false;                
+            }
+        }
+        /// <summary>Method: pnlField_MouseMove
+        /// When the piece is selected by MouseDown and until the MouseUp,
+        /// achieve the drag and drop to this piece
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void pnlField_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (dragging)
+            {
+                topPiece.x_pos = e.X;
+                topPiece.y_pos = e.Y;
+                RefreshView();
             }
         }
     }

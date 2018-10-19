@@ -54,6 +54,7 @@
             this.pnlField.TabIndex = 0;
             this.pnlField.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlField_MouseClick);
             this.pnlField.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlField_MouseDown);
+            this.pnlField.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlField_MouseMove);
             this.pnlField.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlField_MouseUp);
             // 
             // cmsField
