@@ -39,13 +39,14 @@ namespace SoccerTacticBoard
         /// <param name="g"></param>
         public virtual void Draw(Graphics g) 
         {
+            float magnification = 1.15f;
             int line_width = 2;
             if (g != null)
             {
                 Brush br = new SolidBrush(color);
                 if (Highlight) // If selected, draw it bigger
                 {
-                    g.FillEllipse(br, x, y, width + line_width, height + line_width);
+                    g.FillEllipse(br, x, y, width * magnification, height * magnification);
                 }
                 else
                 {
@@ -53,7 +54,7 @@ namespace SoccerTacticBoard
                 }
            
                 // make slightly smaller than shape to avoid shadow
-                float borderDiameter = (Highlight) ? (float)(width) : (float)(width - line_width);
+                float borderDiameter = (Highlight) ? (float)(width * magnification - line_width) : (float)(width - line_width);
                 // draw border around circle
                 Pen p = new Pen(Color.White, line_width);
                 p.DashStyle = DashStyle.Solid;
@@ -105,6 +106,20 @@ namespace SoccerTacticBoard
             Point pt = new Point(x+(width/2), y+(height/2));
             //default behaviour
             return field.Contains(pt);
+        }
+        /// <summary>virtual method: HitTest
+        /// Test whether the mouse in hit the piece
+        /// </summary>
+        /// <param name="p"></param>
+        /// <returns></returns>
+        public virtual bool HitTest(Point p)
+        {
+            Rectangle ellipse = new Rectangle(x, y, width, height);
+            // use the bounding box of your ellipse instead
+            GraphicsPath myPath = new GraphicsPath();
+            myPath.AddEllipse(ellipse);
+            //default behaviour
+            return myPath.IsVisible(p);
         }
     }
 }

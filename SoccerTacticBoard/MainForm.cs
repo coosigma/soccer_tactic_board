@@ -57,8 +57,8 @@ namespace SoccerTacticBoard
             theController.AddView(filterViewForm);
 
             //show views
-            filterViewForm.Show();
-            textViewForm.Show();
+            //filterViewForm.Show();
+            //textViewForm.Show();
             graphicViewForm.Show();
 
         }

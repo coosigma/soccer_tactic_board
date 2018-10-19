@@ -53,6 +53,8 @@
             this.pnlField.Size = new System.Drawing.Size(1067, 698);
             this.pnlField.TabIndex = 0;
             this.pnlField.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlField_MouseClick);
+            this.pnlField.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlField_MouseDown);
+            this.pnlField.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlField_MouseUp);
             // 
             // cmsField
             // 
@@ -77,30 +79,30 @@
             // playerToolStripMenuItem
             // 
             this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
-            this.playerToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.playerToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.playerToolStripMenuItem.Text = "Player";
             // 
             // ballToolStripMenuItem
             // 
             this.ballToolStripMenuItem.Name = "ballToolStripMenuItem";
-            this.ballToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.ballToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.ballToolStripMenuItem.Text = "Ball";
             // 
             // refereeToolStripMenuItem
             // 
             this.refereeToolStripMenuItem.Name = "refereeToolStripMenuItem";
-            this.refereeToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.refereeToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.refereeToolStripMenuItem.Text = "Referee";
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(213, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(138, 6);
             // 
             // teamToolStripMenuItem
             // 
             this.teamToolStripMenuItem.Name = "teamToolStripMenuItem";
-            this.teamToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.teamToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.teamToolStripMenuItem.Text = "Team";
             this.teamToolStripMenuItem.Click += new System.EventHandler(this.teamToolStripMenuItem_Click);
             // 
@@ -124,7 +126,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1087, 749);
             this.Controls.Add(this.pnlField);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GraphicViewForm";
             this.Text = "GraphicViewForm";
             this.cmsField.ResumeLayout(false);

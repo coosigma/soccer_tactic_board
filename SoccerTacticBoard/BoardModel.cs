@@ -70,7 +70,7 @@ namespace SoccerTacticBoard
             UpdateViews();
         }
         /// <summary>method: SendToBack
-        /// method to resequence arrayList so selected shape is 
+        /// method to resequence arrayList so selected piece is 
         /// drawn first
         /// </summary>
         /// <param name="aPiece"></param>
@@ -94,10 +94,10 @@ namespace SoccerTacticBoard
             {
                 pieceList[i] = sortList[i];
             }
-            UpdateViews();
+            //UpdateViews();
         }
         /// <summary>method: BringToFront
-        /// method to resequence arrayList so selected shape is 
+        /// method to resequence arrayList so selected piece is 
         /// drawn last
         /// </summary>
         /// <param name="aPiece"></param>
@@ -122,7 +122,7 @@ namespace SoccerTacticBoard
             {
                 pieceList[i] = sortList[i];
             }
-            UpdateViews();
+            //UpdateViews();
         }
         /// <summary>method: UpdateViews
         /// refresh all views

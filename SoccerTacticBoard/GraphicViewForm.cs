@@ -14,6 +14,9 @@ namespace SoccerTacticBoard
     public partial class GraphicViewForm : Form, IBoardView
     {
         private BoardModel model;
+        private bool dragging;
+        APiece topPiece; //  variable for selected piece
+        APiece editPiece; // variable for piece to edit
         // set method for model
         public BoardModel Model
         {
@@ -48,7 +51,7 @@ namespace SoccerTacticBoard
             // create arrayList from model
             ArrayList pieces = model.PieceList;
             Graphics g = this.pnlField.CreateGraphics();
-            // draw all pieces in array
+            // draw all pieces in arrayList
             foreach (APiece p in pieces)
             {
                 p.Draw(g);
@@ -70,7 +73,7 @@ namespace SoccerTacticBoard
             int h = w;
             Color c = Color.Blue;
             ArrayList pieceBatch = new ArrayList();
-            for (int i = 1; i <= 11; i++)
+            for (int i = 1; i <= 3; i++)
             {
                 string n = "player" + i.ToString();
                 Player player = new Player(n, xp, yp, w, h, c, i);
@@ -86,6 +89,53 @@ namespace SoccerTacticBoard
             {
                 Point pt = pnlField.PointToScreen(e.Location);
                 cmsField.Show(pt);
+            }
+        }
+
+        private void pnlField_MouseDown(object sender, MouseEventArgs e)
+        {
+            //if (e.Button == MouseButtons.Left && topPiece != null)
+            if (e.Button == MouseButtons.Left)
+            {
+                ArrayList pl = model.PieceList;
+                System.Console.WriteLine("Left Mouse Down");               
+                //APiece[] thePeices = (APiece[])pl.ToArray(typeof(APiece));
+                for (int i = pl.Count; i > 0; i--)
+                {
+                    APiece p = (APiece)pl[i - 1];
+                    Point m = new Point(e.X, e.Y);
+                    Console.WriteLine(p.HitTest(m));
+                    if (p.HitTest(m))
+                    {
+                        dragging = true;
+                        p.Highlight = true;
+                        try
+                        {
+                            APiece pre = (APiece)pl[pl.Count-1];
+                            if (pre != p)
+                            {
+                                Console.WriteLine(pre.Name);
+                                pre.Highlight = false;
+                            }
+                        }
+                        catch (ArgumentOutOfRangeException)
+                        {
+
+                        }
+                        model.BringToFront(p);
+                        RefreshView();
+                        break;
+                    }                    
+                }
+            }                
+        }
+
+        private void pnlField_MouseUp(object sender, MouseEventArgs e)
+        {
+            if (topPiece != null)
+            {
+                System.Console.WriteLine("Left Mouse Up");
+                dragging = false;
             }
         }
     }
