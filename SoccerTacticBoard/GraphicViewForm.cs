@@ -75,6 +75,7 @@ namespace SoccerTacticBoard
             int w = 25;
             int h = w;
             Color c = Color.Blue;
+            blueToolStripMenuItem.Checked = true;
             ArrayList pieceBatch = new ArrayList();
             for (int i = 1; i <= 3; i++)
             {
@@ -130,9 +131,33 @@ namespace SoccerTacticBoard
                     cmsField.Show(pt);
                 } else
                 {
+                    checkColorChecked();
                     cmsPiece.Show(pt);
                 }
             }
+        }
+        /// <summary>Method: checkColorChecked
+        /// Make the color ToolStripMenuItems checked right
+        /// </summary>
+        public void checkColorChecked()
+        {
+            if(editPiece != null)
+            {
+                if (editPiece.Color == Color.Blue)
+                {
+                    ExclusiveCheckToolStripMenuItems(blueToolStripMenuItem);                    
+                }
+                else if (editPiece.Color == Color.Red)
+                {
+                    ExclusiveCheckToolStripMenuItems(redToolStripMenuItem);
+                }
+                else if (editPiece.Color == Color.Yellow)
+                {
+                    ExclusiveCheckToolStripMenuItems(yellowToolStripMenuItem);
+                }
+
+            }
+            
         }
         /// <summary>Method: pnlField_MouseDown
         /// check if mouse is over piece and set variable to 
@@ -214,6 +239,111 @@ namespace SoccerTacticBoard
                 topPiece.y_pos += yMove;
                 RefreshView();
             }
+        }
+        /// <summary>Method: numberToolStripMenuItem
+        /// oOnclick numberToolStripMenuItem
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void numberToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (editPiece != null)
+            {
+                TextBox txt = new TextBox();
+                int xOff = 5;
+                int yOff = 5;
+                Point l = new Point(editPiece.x_pos+xOff, editPiece.y_pos+yOff);
+                txt.Location = l;
+                txt.Width = 20;
+                txt.Leave += new EventHandler(txt_Leave);
+                pnlField.Controls.Add(txt);
+            }           
+        }
+        /// <summary>Method: txt_Leave
+        /// Generate the textbox for changing the player's number
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void txt_Leave(object sender, EventArgs e)
+        {
+            using (Graphics g = this.pnlField.CreateGraphics())
+            {
+                g.DrawString(((TextBox)sender).Text, ((TextBox)sender).Font, Brushes.Black, ((TextBox)sender).Location);
+            }
+            ((TextBox)sender).Leave -= new EventHandler(txt_Leave);
+            pnlField.Controls.Remove((TextBox)sender);
+            ((TextBox)sender).Dispose();
+            pnlField.Invalidate();
+        }
+        /// <summary>Method: blueToolStripMenuItem
+        /// Onlick blueToolStripMenuItem
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void blueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExclusiveCheckToolStripMenuItems((ToolStripMenuItem)sender);
+            if (editPiece != null && editPiece is Player)
+            {
+                Player p = (Player)editPiece;
+                p.Color = Color.Blue;
+                p.LineColor = Color.White;
+                p.NumberColor = Color.White;
+                model.UpdateViews();
+            }
+        }
+        /// <summary>Method: redToolStripMenuItem
+        /// Onlick redToolStripMenuItem
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void redToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExclusiveCheckToolStripMenuItems((ToolStripMenuItem)sender);
+            if (editPiece != null && editPiece is Player)
+            {
+                Player p = (Player)editPiece;
+                p.Color = Color.Red;
+                p.LineColor = Color.White;
+                p.NumberColor = Color.White;
+                model.UpdateViews();
+            }
+        }
+        /// <summary>Method: yellowToolStripMenuItem
+        /// Onlick yellowToolStripMenuItem
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void yellowToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ExclusiveCheckToolStripMenuItems((ToolStripMenuItem)sender);
+            if (editPiece != null && editPiece is Player)
+            {
+                Player p = (Player)editPiece;
+                p.Color = Color.Yellow;
+                p.LineColor = Color.Black;
+                p.NumberColor = Color.Black;
+                model.UpdateViews();
+            }
+        }
+        /// <summary>Method: ExclusiveCheckToolStripMenuItems
+        /// Check the selected item and uncheck the orders
+        /// </summary>
+        /// <param name="selectedMenuItem"></param>
+        public void ExclusiveCheckToolStripMenuItems(ToolStripMenuItem selectedMenuItem)
+        {
+            selectedMenuItem.Checked = true;
+            // Select the other MenuItens from the ParentMenu(OwnerItens) and unchecked this,
+            // The current Linq Expression verify if the item is a real ToolStripMenuItem
+            // and if the item is a another ToolStripMenuItem to uncheck this.
+            foreach (var ltoolStripMenuItem in (from object
+            item in selectedMenuItem.Owner.Items
+                                                let ltoolStripMenuItem = item as ToolStripMenuItem
+                                                where ltoolStripMenuItem != null
+                                                where !item.Equals(selectedMenuItem)
+                                                select ltoolStripMenuItem))
+                (ltoolStripMenuItem).Checked = false;
+            editPiece.Highlight = false;
         }
     }
 }

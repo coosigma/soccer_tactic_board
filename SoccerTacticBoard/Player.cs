@@ -14,7 +14,7 @@ namespace SoccerTacticBoard
     class Player : APiece
     {
         private int number; // The number of the player
-        private string fPosition; // The field position of the player
+        private Color numberColor; // The font colour of the number
         /// <summary>
         /// Constructor
         /// </summary>
@@ -29,7 +29,7 @@ namespace SoccerTacticBoard
             : base(name, x, y, w, h, c)
         {
             this.number = number;
-            fPosition = String.Empty;
+            numberColor = (c == Color.Yellow)? Color.Black: Color.White;
         }
         /// <summary>override method: ToString
         /// to display piece as text
@@ -37,17 +37,17 @@ namespace SoccerTacticBoard
         /// <returns></returns>
         public override string ToString()
         {
-            return "Player: " + Number.ToString() + " ("+FPosition+") at " + this.Position();
+            return "Player: " + Number.ToString() + " ("+name+") at " + this.Position();
         }
         public int Number
         {
             get { return number; }
             set { number = value; }
         }
-        public string FPosition
+        public Color NumberColor
         {
-            get { return fPosition; }
-            set { fPosition = value; }
+            get { return numberColor; }
+            set { numberColor = value; }
         }
         public override int x_pos //non abstract property
         {
@@ -89,7 +89,7 @@ namespace SoccerTacticBoard
             base.Draw(g);
             int FontSize = (Highlight) ? 16 : 14;
             Font drawFont = new Font("Arial", FontSize);
-            SolidBrush drawBrush = new SolidBrush(System.Drawing.Color.White);
+            SolidBrush drawBrush = new SolidBrush(numberColor);
             StringFormat drawFormat = new StringFormat();
             float xOff = (Highlight) ? 5f : 4.5f;
             float yOff = (Highlight) ? 2.5f : 2f;

@@ -16,6 +16,7 @@ namespace SoccerTacticBoard
         protected int width;
         protected int height;
         protected Color color;
+        protected Color lineColor;
         // Is this piece seleted
         bool highlight;
 
@@ -32,6 +33,7 @@ namespace SoccerTacticBoard
             height = h;
             color = c;
             highlight = false;
+            lineColor = (c == Color.Yellow) ? Color.Black : Color.White;
         }
         /// <summary>virtual method: Draw
         /// Draw the circle piece
@@ -56,7 +58,7 @@ namespace SoccerTacticBoard
                 // make slightly smaller than shape to avoid shadow
                 float borderDiameter = (Highlight) ? (float)(width * magnification - line_width) : (float)(width - line_width);
                 // draw border around circle
-                Pen p = new Pen(Color.White, line_width);
+                Pen p = new Pen(lineColor, line_width);
                 p.DashStyle = DashStyle.Solid;
                 // to avoid shadow position move position by 1.5
                 float xFloat = (float)(x + (line_width / 2));
@@ -71,6 +73,11 @@ namespace SoccerTacticBoard
         {
             get { return highlight; }
             set { highlight = value; }
+        }
+        public Color LineColor
+        {
+            get { return lineColor; }
+            set { lineColor = value; }
         }
 
         public string Position()  //non abstract method
