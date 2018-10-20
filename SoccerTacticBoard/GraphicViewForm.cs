@@ -6,6 +6,7 @@ using System.Data;
 using System.Drawing;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -93,6 +94,8 @@ namespace SoccerTacticBoard
         /// <param name="e"></param>
         private void pnlField_MouseClick(object sender, MouseEventArgs e)
         {
+            if (txtNumber.Visible)
+                changePlayerNumber(); // A way to finish editing editPiece
             if (e.Button == MouseButtons.Right)
             {
                 editPiece = null;
@@ -176,7 +179,6 @@ namespace SoccerTacticBoard
                 {
                     APiece p = (APiece)pl[i - 1];
                     Point m = new Point(e.X, e.Y);
-                    Console.WriteLine(p.HitTest(m));
                     if (p.HitTest(m))
                     {
                         dragging = true;
@@ -212,7 +214,6 @@ namespace SoccerTacticBoard
         {
             if (topPiece != null)
             {
-                System.Console.WriteLine("Left Mouse Up");
                 topPiece.Highlight = false;
                 model.UpdateViews();
                 dragging = false;                
@@ -241,22 +242,22 @@ namespace SoccerTacticBoard
             }
         }
         /// <summary>Method: numberToolStripMenuItem
-        /// oOnclick numberToolStripMenuItem
+        /// Onclick numberToolStripMenuItem
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void numberToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (editPiece != null)
+            if (editPiece != null && editPiece is Player)
             {
-                TextBox txt = new TextBox();
-                int xOff = 5;
-                int yOff = 5;
-                Point l = new Point(editPiece.x_pos+xOff, editPiece.y_pos+yOff);
-                txt.Location = l;
-                txt.Width = 20;
-                txt.Leave += new EventHandler(txt_Leave);
-                pnlField.Controls.Add(txt);
+                Player p = (Player)editPiece;
+                int xOff = 12;
+                int yOff = 39;
+                Point l = new Point(p.x_pos+xOff, p.y_pos+yOff);
+                txtNumber.Text = p.Number.ToString();
+                txtNumber.Location = l;
+                txtNumber.Visible = true;
+                txtNumber.Focus();
             }           
         }
         /// <summary>Method: txt_Leave
@@ -264,16 +265,20 @@ namespace SoccerTacticBoard
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void txt_Leave(object sender, EventArgs e)
+        private void txt_Leave(object sender, EventArgs e)
         {
-            using (Graphics g = this.pnlField.CreateGraphics())
+            if (editPiece != null && editPiece is Player)
             {
-                g.DrawString(((TextBox)sender).Text, ((TextBox)sender).Font, Brushes.Black, ((TextBox)sender).Location);
-            }
-            ((TextBox)sender).Leave -= new EventHandler(txt_Leave);
-            pnlField.Controls.Remove((TextBox)sender);
-            ((TextBox)sender).Dispose();
-            pnlField.Invalidate();
+                Player p = (Player)editPiece;
+                using (Graphics g = this.pnlField.CreateGraphics())
+                {
+                    g.DrawString(p.Number.ToString(), new Font(p.NumberFont, 16), new SolidBrush(p.NumberColor), ((TextBox)sender).Location);
+                }
+                ((TextBox)sender).Leave -= new EventHandler(txt_Leave);
+                pnlField.Controls.Remove((TextBox)sender);
+                ((TextBox)sender).Dispose();
+                pnlField.Invalidate();
+            }            
         }
         /// <summary>Method: blueToolStripMenuItem
         /// Onlick blueToolStripMenuItem
@@ -344,6 +349,58 @@ namespace SoccerTacticBoard
                                                 select ltoolStripMenuItem))
                 (ltoolStripMenuItem).Checked = false;
             editPiece.Highlight = false;
+        }
+        /// <summary>Method: txtNumber_TextChanged
+        /// Treat when txtNumber TextChanged
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtNumber_TextChanged(object sender, EventArgs e)
+        {
+            String text = txtNumber.Text;
+            if (text.Length == 0)
+            {
+            }
+            else if (text.Length > 2)
+            {
+                txtNumber.Text = text.Substring(0, 2);
+            } else
+            {
+                Match m = Regex.Match(text, @"\d{1,2}");
+                while (!m.Success && text.Length > 0)
+                {
+                    text = text.Substring(0, text.Length - 1);
+                    m = Regex.Match(text, @"\d{1,2}");
+                }
+                txtNumber.Text = text;
+                txtNumber.Select(text.Length, 0);
+            }          
+        }
+        /// <summary>Method: txtNumber_KeyPress
+        /// Treat when txtNumber KeyPress
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtNumber_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter) // When pressed <Enter> key
+            {
+                e.Handled = true; // Stop the warning tone
+                changePlayerNumber();
+            }
+        }
+        /// <summary>Method: changePlayerNumber
+        /// Change the Player's number
+        /// </summary>
+        private void changePlayerNumber()
+        {
+            if (editPiece != null && editPiece is Player)
+            {
+                Player p = (Player)editPiece;
+                p.Number = Int32.Parse(txtNumber.Text);
+                txtNumber.Visible = false;
+                RefreshView();
+            }
         }
     }
 }

@@ -15,6 +15,7 @@ namespace SoccerTacticBoard
     {
         private int number; // The number of the player
         private Color numberColor; // The font colour of the number
+        private string numberFont;
         /// <summary>
         /// Constructor
         /// </summary>
@@ -30,6 +31,7 @@ namespace SoccerTacticBoard
         {
             this.number = number;
             numberColor = (c == Color.Yellow)? Color.Black: Color.White;
+            numberFont = "Arial";
         }
         /// <summary>override method: ToString
         /// to display piece as text
@@ -43,6 +45,11 @@ namespace SoccerTacticBoard
         {
             get { return number; }
             set { number = value; }
+        }
+        public string NumberFont
+        {
+            get { return numberFont; }
+            set { numberFont = value; }
         }
         public Color NumberColor
         {
@@ -88,7 +95,7 @@ namespace SoccerTacticBoard
         {
             base.Draw(g);
             int FontSize = (Highlight) ? 16 : 14;
-            Font drawFont = new Font("Arial", FontSize);
+            Font drawFont = new Font(numberFont, FontSize);
             SolidBrush drawBrush = new SolidBrush(numberColor);
             StringFormat drawFormat = new StringFormat();
             float xOff = (Highlight) ? 5f : 4.5f;

@@ -47,6 +47,7 @@
             this.blueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yellowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.txtNumber = new System.Windows.Forms.TextBox();
             this.cmsField.SuspendLayout();
             this.cmsPiece.SuspendLayout();
             this.SuspendLayout();
@@ -121,7 +122,7 @@
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.cmsPiece.Name = "cmsPiece";
-            this.cmsPiece.Size = new System.Drawing.Size(211, 80);
+            this.cmsPiece.Size = new System.Drawing.Size(127, 52);
             // 
             // deleteToolStripMenuItem
             // 
@@ -136,7 +137,7 @@
             this.nameToolStripMenuItem,
             this.colourToolStripMenuItem});
             this.editToolStripMenuItem.Name = "editToolStripMenuItem";
-            this.editToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.editToolStripMenuItem.Size = new System.Drawing.Size(126, 24);
             this.editToolStripMenuItem.Text = "Edit";
             // 
             // numberToolStripMenuItem
@@ -183,11 +184,22 @@
             this.yellowToolStripMenuItem.Text = "Yellow";
             this.yellowToolStripMenuItem.Click += new System.EventHandler(this.yellowToolStripMenuItem_Click);
             // 
+            // txtNumber
+            // 
+            this.txtNumber.Location = new System.Drawing.Point(579, 12);
+            this.txtNumber.Name = "txtNumber";
+            this.txtNumber.Size = new System.Drawing.Size(24, 25);
+            this.txtNumber.TabIndex = 2;
+            this.txtNumber.Visible = false;
+            this.txtNumber.TextChanged += new System.EventHandler(this.txtNumber_TextChanged);
+            this.txtNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumber_KeyPress);
+            // 
             // GraphicViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1087, 749);
+            this.Controls.Add(this.txtNumber);
             this.Controls.Add(this.pnlField);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GraphicViewForm";
@@ -195,6 +207,7 @@
             this.cmsField.ResumeLayout(false);
             this.cmsPiece.ResumeLayout(false);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -217,5 +230,6 @@
         private System.Windows.Forms.ToolStripMenuItem blueToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem redToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yellowToolStripMenuItem;
+        private System.Windows.Forms.TextBox txtNumber;
     }
 }
