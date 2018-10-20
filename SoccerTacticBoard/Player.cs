@@ -84,5 +84,18 @@ namespace SoccerTacticBoard
             get { return name; }
             set { name = value; }
         }
+        public override void Draw(Graphics g)
+        {
+            base.Draw(g);
+            int FontSize = (Highlight) ? 16 : 14;
+            Font drawFont = new Font("Arial", FontSize);
+            SolidBrush drawBrush = new SolidBrush(System.Drawing.Color.White);
+            StringFormat drawFormat = new StringFormat();
+            float xOff = (Highlight) ? 5f : 4.5f;
+            float yOff = (Highlight) ? 2.5f : 2f;
+            g.DrawString(number.ToString(), drawFont, drawBrush, x+xOff, y+yOff, drawFormat);
+            drawFont.Dispose();
+            drawBrush.Dispose();
+        }
     }
 }
