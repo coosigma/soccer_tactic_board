@@ -283,6 +283,7 @@
             this.deleteTheTeamToolStripMenuItem.Name = "deleteTheTeamToolStripMenuItem";
             this.deleteTheTeamToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.deleteTheTeamToolStripMenuItem.Text = "Delete the team";
+            this.deleteTheTeamToolStripMenuItem.Click += new System.EventHandler(this.deleteTheTeamToolStripMenuItem_Click);
             // 
             // GraphicViewForm
             // 

@@ -613,5 +613,72 @@ namespace SoccerTacticBoard
             }
             model.UpdateViews();
         }
+        private DialogResult showWarningMessageBox(string message, string caption)
+        {
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result;
+            // Displays the MessageBox.
+            result = MessageBox.Show(this, message, caption, buttons);
+            return result;
+        }
+        /// <summary>Method: deleteTheTeamToolStripMenuItem_Click
+        /// Delete a team event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void deleteTheTeamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (editPiece != null && editPiece is Player)
+            {
+                Player p = (Player)editPiece;
+                string team = (p.IsHomeTeam) ? "the home team" : "the away team";
+                string message = "Do you really want to delete " + team + "?";
+                string caption = "Deletion Confirmation";
+                DialogResult result = showWarningMessageBox(message, caption);
+                if (result == DialogResult.Yes)
+                {
+                    deleteWholeTeam(p);
+                }
+                else if (result == DialogResult.No)
+                {
+                    editPiece.Highlight = false;
+                    return;
+                }
+            }
+        }
+        /// <summary>Method: deleteWholeTeam
+        /// Delete the whole team of seleted player
+        /// </summary>
+        /// <param name="p"></param>
+        private void deleteWholeTeam(Player p)
+        {
+            for (int i = model.PieceList.Count; i > 0; i--)
+            {
+                APiece ap = (APiece)model.PieceList[i - 1];
+                if (!(ap is Player))
+                    continue;
+                Player player = (Player)ap;
+                if (player.IsHomeTeam == p.IsHomeTeam)
+                {
+                    try
+                    {
+                        model.PieceList.RemoveAt(i-1);
+                    }
+                    catch (Exception ex)
+                    {
+                        MessageBox.Show(ex.ToString());
+                    }
+                }
+            }
+            if (p.IsHomeTeam)
+            {
+                homeTeamCount = 0;
+            }
+            else
+            {
+                awayTeamCount = 0;
+            }
+            model.UpdateViews();
+        }
     }
 }
