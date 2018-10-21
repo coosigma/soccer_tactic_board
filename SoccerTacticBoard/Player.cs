@@ -90,7 +90,20 @@ namespace SoccerTacticBoard
         public override Color Color //non abstract property
         {
             get { return color; }
-            set { color = value; }
+            set {
+                color = value;
+                if (color == Color.Yellow)
+                {
+                    lineColor = Color.Black;
+                    infoColor = Color.Black;
+                }
+                else
+                {
+                    lineColor = Color.White;
+                    infoColor = Color.White;
+                }
+
+            }
         }
 
         public override string Name //non abstract property

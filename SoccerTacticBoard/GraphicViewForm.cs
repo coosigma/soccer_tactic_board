@@ -15,8 +15,13 @@ namespace SoccerTacticBoard
     public partial class GraphicViewForm : Form, IBoardView
     {
         private BoardModel model;
+        private int homeTeamAmount = 0; // Record the number of the home team
+        private int awayTeamAmount = 0; // Record the number of the away team
+        private Color homeTeamColor; // Record the color of the home team
+        private Color awayTeamColor; // Record the color of the away team
         private bool dragging;
         private bool showName=false;
+        private Point mouseLocation; // variable for mouse location
         APiece topPiece; //  variable for selected piece
         APiece editPiece; // variable for piece to edit
         // variables for mouse position
@@ -86,6 +91,7 @@ namespace SoccerTacticBoard
                 changePlayerName(); // A way to finish editing Name of the editPiece
             if (e.Button == MouseButtons.Right)
             {
+                mouseLocation = e.Location;
                 editPiece = null;
                 ArrayList pl = model.PieceList;
                 for (int i = pl.Count; i > 0; i--)
@@ -248,6 +254,23 @@ namespace SoccerTacticBoard
                 txtNumber.Focus();
             }           
         }
+        /// <summary>Method: changeTeamColor
+        /// Change a team's color
+        /// </summary>
+        /// <param name="p"></param>
+        /// <param name="c"></param>
+        private void changeTeamColor(Player p, Color c)
+        {
+            foreach (APiece ap in model.PieceList)
+            {
+                if (!(ap is Player)) // next if ap is not a Player
+                    continue;
+                Player player = (Player)ap;
+                if (player.IsHomeTeam != p.IsHomeTeam) // next if player is not in the target team
+                    continue;
+                player.Color = c;
+            }
+        }
         /// <summary>Method: blueToolStripMenuItem
         /// Onlick blueToolStripMenuItem
         /// </summary>
@@ -255,16 +278,15 @@ namespace SoccerTacticBoard
         /// <param name="e"></param>
         private void blueToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ExclusiveCheckToolStripMenuItems((ToolStripMenuItem)sender);
+            //ExclusiveCheckToolStripMenuItems((ToolStripMenuItem)sender);
             if (editPiece != null && editPiece is Player)
             {
                 Player p = (Player)editPiece;
-                p.Color = Color.Blue;
-                p.LineColor = Color.White;
-                p.InfoColor = Color.White;
+                changeTeamColor(p, Color.Blue);
                 model.UpdateViews();
             }
         }
+
         /// <summary>Method: redToolStripMenuItem
         /// Onlick redToolStripMenuItem
         /// </summary>
@@ -276,9 +298,7 @@ namespace SoccerTacticBoard
             if (editPiece != null && editPiece is Player)
             {
                 Player p = (Player)editPiece;
-                p.Color = Color.Red;
-                p.LineColor = Color.White;
-                p.InfoColor = Color.White;
+                changeTeamColor(p, Color.Red);
                 model.UpdateViews();
             }
         }
@@ -293,9 +313,7 @@ namespace SoccerTacticBoard
             if (editPiece != null && editPiece is Player)
             {
                 Player p = (Player)editPiece;
-                p.Color = Color.Yellow;
-                p.LineColor = Color.Black;
-                p.InfoColor = Color.Black;
+                changeTeamColor(p, Color.Yellow);
                 model.UpdateViews();
             }
         }
@@ -449,20 +467,24 @@ namespace SoccerTacticBoard
         /// <param name="e"></param>
         private void homeTeamToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int pop = 11;
             int xp = 50;
             int yp = 50;
             int w = 25;
             int h = w;
             Color c = Color.Red;
+            homeTeamColor = c;
             ArrayList pieceBatch = new ArrayList();
-            for (int i = 1; i <= 11; i++)
+            for (int i = 1; i <= pop; i++)
             {
                 string n = "player" + i.ToString();
                 Player player = new Player(n, xp, yp, w, h, c, i, true);
                 pieceBatch.Add(player);
                 xp += w;
             }
+            awayTeamAmount += pop;
             model.AddPieceBatch(pieceBatch);
+            homeTeamToolStripMenuItem.Enabled = false;
         }
         /// <summary>Method: awayTeamToolStripMenuItem_Click
         /// Create away team
@@ -471,20 +493,45 @@ namespace SoccerTacticBoard
         /// <param name="e"></param>
         private void awayTeamToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            int pop = 11;
             int xp = 420;
             int yp = 50;
             int w = 25;
             int h = w;
             Color c = Color.Blue;
+            awayTeamColor = c;
             ArrayList pieceBatch = new ArrayList();
-            for (int i = 1; i <= 11; i++)
+            for (int i = 1; i <= pop; i++)
             {
                 string n = "player" + i.ToString();
                 Player player = new Player(n, xp, yp, w, h, c, i, false);
                 pieceBatch.Add(player);
                 xp += w;
             }
+            awayTeamAmount += pop;
             model.AddPieceBatch(pieceBatch);
+            awayTeamToolStripMenuItem.Enabled = false;
+        }
+        /// <summary>Method: homeTeamToolStripMenuItem1
+        /// Change the color of home team
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void homeTeamToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            homeTeamAmount++;
+            int xp = 0;
+            int yp = 0;
+            if (mouseLocation != null)
+            {
+                xp = mouseLocation.X;
+                yp = mouseLocation.Y;
+            }
+            int w = 25;
+            int h = w;
+            Color c = Color.Blue;
+            string n = "player" + homeTeamAmount.ToString();
+            Player player = new Player(n, xp, yp, w, h, c, homeTeamAmount, true);
         }
     }
 }
