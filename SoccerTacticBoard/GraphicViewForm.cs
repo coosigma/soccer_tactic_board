@@ -22,8 +22,10 @@ namespace SoccerTacticBoard
         private bool dragging;
         private bool showName=false;
         private Point mouseLocation; // variable for mouse location
-        private static int playerW = 25; // variable for play's width
-        private static int playerH = playerW; // variable for play's height
+        private static int pieceW = 25; // variable for piece's width
+        private static int pieceH = pieceW; // variable for piece's height
+        private int mainRefereeCount = 0; // Record the number of main referee
+        private int assistantRefereeCount = 0; // Record the number of assistant referee
         APiece topPiece; //  variable for selected piece
         APiece editPiece; // variable for piece to edit
         // variables for mouse position
@@ -70,7 +72,11 @@ namespace SoccerTacticBoard
                 {
                     Player player = (Player)p;
                     player.Draw(g, showName);
-                }                
+                }
+                else
+                {
+                    p.Draw(g);
+                }
             }
         }
         /// <summary>Method: clearPanel
@@ -94,7 +100,9 @@ namespace SoccerTacticBoard
             if (e.Button == MouseButtons.Right)
             {
                 mouseLocation = e.Location;
-                /// The numbers of a team is from 0 to 18 ///////////////
+                /// The numbers of a team is from 0 to 18 ////////////////
+                /// The numbers of main referee is only 1 or 0 ///////////
+                /// /// The numbers of assistant referee is from 0 to 4 //
                 if (homeTeamCount >= 18)
                     homeTeamToolStripMenuItem1.Enabled = false;
                 if (awayTeamCount >= 18)
@@ -104,14 +112,21 @@ namespace SoccerTacticBoard
                     homeTeamToolStripMenuItem1.Enabled = true;
                     if (homeTeamCount < 1)
                         homeTeamToolStripMenuItem.Enabled = true; // Enable create team menu
-                }                    
+                }               
                 if (awayTeamCount < 18)
                 {
                     awayTeamToolStripMenuItem1.Enabled = true;
                     if (awayTeamCount < 1)
                         awayTeamToolStripMenuItem.Enabled = true; // Enable create team menu
                 }
-                    
+                if (mainRefereeCount >= 1)
+                    mainRefereeToolStripMenuItem.Enabled = false;
+                if (assistantRefereeCount >= 4)
+                    assistantRefereeToolStripMenuItem.Enabled = false;
+                if (mainRefereeCount < 1)
+                    mainRefereeToolStripMenuItem.Enabled = true;
+                if (assistantRefereeCount < 4)
+                    assistantRefereeToolStripMenuItem.Enabled = true;
                 /////////////////////////////////////////////////////////
                 editPiece = null;
                 ArrayList pl = model.PieceList;
@@ -506,9 +521,9 @@ namespace SoccerTacticBoard
             {
                 homeTeamCount++;
                 string n = "player" + homeTeamCount.ToString();
-                Player player = new Player(n, xp, yp, playerW, playerH, c, homeTeamCount, true);
+                Player player = new Player(n, xp, yp, pieceW, pieceH, c, homeTeamCount, true);
                 pieceBatch.Add(player);
-                xp += playerW;
+                xp += pieceW;
             }
             model.AddPieceBatch(pieceBatch);
             homeTeamToolStripMenuItem.Enabled = false;
@@ -530,9 +545,9 @@ namespace SoccerTacticBoard
             {
                 awayTeamCount++;
                 string n = "player" + awayTeamCount.ToString();
-                Player player = new Player(n, xp, yp, playerW, playerH, c, awayTeamCount, false);
+                Player player = new Player(n, xp, yp, pieceW, pieceH, c, awayTeamCount, false);
                 pieceBatch.Add(player);
-                xp += playerW;
+                xp += pieceW;
             }
             model.AddPieceBatch(pieceBatch);
             awayTeamToolStripMenuItem.Enabled = false;
@@ -549,14 +564,12 @@ namespace SoccerTacticBoard
             int yp = 0;
             if (mouseLocation != null)
             {
-                xp = mouseLocation.X - (playerW / 2);
-                yp = mouseLocation.Y - (playerH / 2);
+                xp = mouseLocation.X - (pieceW / 2);
+                yp = mouseLocation.Y - (pieceH / 2);
             }
-            int w = 25;
-            int h = w;
             Color c = homeTeamColor;
             string n = "player" + homeTeamCount.ToString();
-            Player player = new Player(n, xp, yp, playerW, playerH, c, homeTeamCount, true);
+            Player player = new Player(n, xp, yp, pieceW, pieceH, c, homeTeamCount, true);
             model.AddPiece(player);
         }
 
@@ -567,12 +580,12 @@ namespace SoccerTacticBoard
             int yp = 0;
             if (mouseLocation != null)
             {
-                xp = mouseLocation.X - (playerW / 2);
-                yp = mouseLocation.Y - (playerH / 2);
+                xp = mouseLocation.X - (pieceW / 2);
+                yp = mouseLocation.Y - (pieceH / 2);
             }
             Color c = awayTeamColor;
             string n = "player" + awayTeamCount.ToString();
-            Player player = new Player(n, xp, yp, playerW, playerH, c, awayTeamCount, false);
+            Player player = new Player(n, xp, yp, pieceW, pieceH, c, awayTeamCount, false);
             model.AddPiece(player);
         }
         /// <summary>Method: deleteToolStripMenuItem_Click
@@ -679,6 +692,38 @@ namespace SoccerTacticBoard
                 awayTeamCount = 0;
             }
             model.UpdateViews();
+        }
+
+        private void mainRefereeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            mainRefereeCount++;
+            int xp = 0;
+            int yp = 0;
+            if (mouseLocation != null)
+            {
+                xp = mouseLocation.X - (pieceW / 2);
+                yp = mouseLocation.Y - (pieceH / 2);
+            }
+            Color c = Color.Black;
+            string n = "Referee";
+            Referee referee = new Referee(n, xp, yp, pieceW, pieceH, c, "R");
+            model.AddPiece(referee);
+        }
+
+        private void assistantRefereeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            assistantRefereeCount++;
+            int xp = 0;
+            int yp = 0;
+            if (mouseLocation != null)
+            {
+                xp = mouseLocation.X - (pieceW / 2);
+                yp = mouseLocation.Y - (pieceH / 2);
+            }
+            Color c = Color.Black;
+            string n = "Assistant Referee"+ assistantRefereeCount;
+            Referee referee = new Referee(n, xp, yp, pieceW, pieceH, c, "A");
+            model.AddPiece(referee);
         }
     }
 }

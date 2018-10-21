@@ -14,9 +14,7 @@ namespace SoccerTacticBoard
     /// </summary>
     class Referee : APiece
     {
-        // Yellow card and red card lists
-        private ArrayList yellowCardPlayers;
-        private ArrayList redCardPlayers;
+        private string type; // Referee type (R = Main Referee, A = Assistant Referee)
         /// <summary>
         /// Constructor
         /// </summary>
@@ -27,11 +25,15 @@ namespace SoccerTacticBoard
         /// <param name="h"></param>
         /// <param name="c"></param>
         /// <param name="number"></param>
-        public Referee(string name, int x, int y, int w, int h, Color c)
+        public Referee(string name, int x, int y, int w, int h, Color c, string t)
            : base(name, x, y, w, h, c)
         {
-            yellowCardPlayers = new ArrayList();
-            redCardPlayers = new ArrayList();
+            type = t;
+        }
+        public string Type
+        {
+            get { return type; }
+            set { type = value; }
         }
         public override int x_pos //non abstract property
         {
@@ -70,8 +72,24 @@ namespace SoccerTacticBoard
         }
         public override string ToString()
         {
-            return "Referee at " + this.Position();
+            return name + " at " + this.Position();
         }
-
+        /// <summary>Method: Draw
+        /// Override the virture draw method in base class
+        /// </summary>
+        /// <param name="g"></param>
+        public override void Draw(Graphics g)
+        {
+            base.Draw(g);
+            int FontSize = (Highlight) ? 16 : 14;
+            Font drawFont = new Font("Arial", FontSize);
+            SolidBrush drawBrush = new SolidBrush(Color.White);
+            StringFormat drawFormat = new StringFormat();
+            float xOff = (Highlight) ? 4.1f : 4.1f;
+            float yOff = (Highlight) ? 2.5f : 1.5f;
+            g.DrawString(type, drawFont, drawBrush, x + xOff, y + yOff, drawFormat);
+            drawFont.Dispose();
+            drawBrush.Dispose();
+        }
     }
 }
