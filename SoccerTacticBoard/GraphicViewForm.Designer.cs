@@ -80,7 +80,7 @@
             this.createToolStripMenuItem,
             this.viewToolStripMenuItem});
             this.cmsField.Name = "cmsField";
-            this.cmsField.Size = new System.Drawing.Size(127, 52);
+            this.cmsField.Size = new System.Drawing.Size(211, 80);
             // 
             // createToolStripMenuItem
             // 
@@ -91,7 +91,7 @@
             this.ballToolStripMenuItem,
             this.refereeToolStripMenuItem});
             this.createToolStripMenuItem.Name = "createToolStripMenuItem";
-            this.createToolStripMenuItem.Size = new System.Drawing.Size(126, 24);
+            this.createToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.createToolStripMenuItem.Text = "Create";
             // 
             // teamToolStripMenuItem
@@ -165,7 +165,7 @@
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem});
             this.cmsPiece.Name = "cmsPiece";
-            this.cmsPiece.Size = new System.Drawing.Size(211, 80);
+            this.cmsPiece.Size = new System.Drawing.Size(127, 52);
             // 
             // editToolStripMenuItem
             // 
@@ -261,6 +261,7 @@
             this.awayTeamToolStripMenuItem1.Name = "awayTeamToolStripMenuItem1";
             this.awayTeamToolStripMenuItem1.Size = new System.Drawing.Size(216, 26);
             this.awayTeamToolStripMenuItem1.Text = "Away Team";
+            this.awayTeamToolStripMenuItem1.Click += new System.EventHandler(this.awayTeamToolStripMenuItem1_Click);
             // 
             // toolStripMenuItem2
             // 
