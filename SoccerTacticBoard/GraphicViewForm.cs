@@ -575,5 +575,43 @@ namespace SoccerTacticBoard
             Player player = new Player(n, xp, yp, playerW, playerH, c, awayTeamCount, false);
             model.AddPiece(player);
         }
+        /// <summary>Method: deleteToolStripMenuItem_Click
+        /// Delete selected player
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void deleteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (editPiece != null && editPiece is Player)
+            {
+                Player p = (Player)editPiece;
+                if (p.IsHomeTeam)
+                {
+                    homeTeamCount--;
+                }
+                else
+                {
+                    awayTeamCount--;
+                }
+                deletePiece(p);
+                editPiece = null;
+            }
+        }
+        /// <summary>Method: deletePiece
+        /// Delete a piece from the piece list
+        /// </summary>
+        /// <param name="p"></param>
+        private void deletePiece(APiece p)
+        {
+            try
+            {
+                model.PieceList.Remove(p);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            model.UpdateViews();
+        }
     }
 }
