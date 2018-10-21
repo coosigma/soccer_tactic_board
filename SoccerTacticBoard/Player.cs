@@ -14,8 +14,8 @@ namespace SoccerTacticBoard
     class Player : APiece
     {
         private int number; // The number of the player
-        private Color numberColor; // The font colour of the number
-        private string numberFont;
+        private Color infoColor; // The font colour of the number
+        private string infoFont;
         /// <summary>
         /// Constructor
         /// </summary>
@@ -30,8 +30,8 @@ namespace SoccerTacticBoard
             : base(name, x, y, w, h, c)
         {
             this.number = number;
-            numberColor = (c == Color.Yellow)? Color.Black: Color.White;
-            numberFont = "Arial";
+            infoColor = (c == Color.Yellow)? Color.Black: Color.White;
+            infoFont = "Arial";
         }
         /// <summary>override method: ToString
         /// to display piece as text
@@ -46,15 +46,15 @@ namespace SoccerTacticBoard
             get { return number; }
             set { number = value; }
         }
-        public string NumberFont
+        public string InfoFont
         {
-            get { return numberFont; }
-            set { numberFont = value; }
+            get { return infoFont; }
+            set { infoFont = value; }
         }
-        public Color NumberColor
+        public Color InfoColor
         {
-            get { return numberColor; }
-            set { numberColor = value; }
+            get { return infoColor; }
+            set { infoColor = value; }
         }
         public override int x_pos //non abstract property
         {
@@ -91,16 +91,39 @@ namespace SoccerTacticBoard
             get { return name; }
             set { name = value; }
         }
-        public override void Draw(Graphics g)
+        /// <summary>Method: Draw
+        /// The Draw adapted Player behavior
+        /// </summary>
+        /// <param name="g"></param>
+        public void Draw(Graphics g, bool showName)
         {
             base.Draw(g);
-            int FontSize = (Highlight) ? 16 : 14;
-            Font drawFont = new Font(numberFont, FontSize);
-            SolidBrush drawBrush = new SolidBrush(numberColor);
+            float NumberXOff = (Highlight) ? 5f : 4.5f;
+            float NumberYOff = (Highlight) ? 2.5f : 2f;
+            int NumberFontSize = (Highlight) ? 16 : 14;
+            WriteInfo(g, number.ToString(), NumberXOff, NumberYOff, NumberFontSize);
+            if (showName)
+            {
+                float NameXOff = (Highlight) ? -5.5f : -5f;
+                float NameYOff = (Highlight) ? 28.5f : 28f;
+                int NameFontSize = (Highlight) ? 10 : 8;
+                WriteInfo(g, name, NameXOff, NameYOff, NameFontSize);
+            }
+        }
+        /// <summary>Method: WriteInfo
+        /// Write info to the Graphic View
+        /// </summary>
+        /// <param name="g"></param>
+        /// <param name="info"></param>
+        /// <param name="xOff"></param>
+        /// <param name="yOff"></param>
+        /// <param name="FontSize"></param>
+        public void WriteInfo(Graphics g, string info, float xOff, float yOff, int FontSize)
+        {
+            Font drawFont = new Font(infoFont, FontSize);
+            SolidBrush drawBrush = new SolidBrush(infoColor);
             StringFormat drawFormat = new StringFormat();
-            float xOff = (Highlight) ? 5f : 4.5f;
-            float yOff = (Highlight) ? 2.5f : 2f;
-            g.DrawString(number.ToString(), drawFont, drawBrush, x+xOff, y+yOff, drawFormat);
+            g.DrawString(info, drawFont, drawBrush, x + xOff, y + yOff, drawFormat);
             drawFont.Dispose();
             drawBrush.Dispose();
         }

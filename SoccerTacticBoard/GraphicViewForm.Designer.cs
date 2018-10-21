@@ -39,7 +39,6 @@
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.teamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsPiece = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.numberToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.nameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -47,7 +46,11 @@
             this.blueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.redToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.yellowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtNumber = new System.Windows.Forms.TextBox();
+            this.txtName = new System.Windows.Forms.TextBox();
+            this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nameToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsField.SuspendLayout();
             this.cmsPiece.SuspendLayout();
             this.SuspendLayout();
@@ -69,9 +72,10 @@
             // 
             this.cmsField.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.cmsField.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.createToolStripMenuItem});
+            this.createToolStripMenuItem,
+            this.viewToolStripMenuItem});
             this.cmsField.Name = "cmsField";
-            this.cmsField.Size = new System.Drawing.Size(127, 28);
+            this.cmsField.Size = new System.Drawing.Size(211, 80);
             // 
             // createToolStripMenuItem
             // 
@@ -124,12 +128,6 @@
             this.cmsPiece.Name = "cmsPiece";
             this.cmsPiece.Size = new System.Drawing.Size(127, 52);
             // 
-            // deleteToolStripMenuItem
-            // 
-            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
-            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(126, 24);
-            this.deleteToolStripMenuItem.Text = "Delete";
-            // 
             // editToolStripMenuItem
             // 
             this.editToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -152,6 +150,7 @@
             this.nameToolStripMenuItem.Name = "nameToolStripMenuItem";
             this.nameToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.nameToolStripMenuItem.Text = "Name";
+            this.nameToolStripMenuItem.Click += new System.EventHandler(this.nameToolStripMenuItem_Click);
             // 
             // colourToolStripMenuItem
             // 
@@ -166,23 +165,29 @@
             // blueToolStripMenuItem
             // 
             this.blueToolStripMenuItem.Name = "blueToolStripMenuItem";
-            this.blueToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.blueToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
             this.blueToolStripMenuItem.Text = "Blue";
             this.blueToolStripMenuItem.Click += new System.EventHandler(this.blueToolStripMenuItem_Click);
             // 
             // redToolStripMenuItem
             // 
             this.redToolStripMenuItem.Name = "redToolStripMenuItem";
-            this.redToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.redToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
             this.redToolStripMenuItem.Text = "Red";
             this.redToolStripMenuItem.Click += new System.EventHandler(this.redToolStripMenuItem_Click);
             // 
             // yellowToolStripMenuItem
             // 
             this.yellowToolStripMenuItem.Name = "yellowToolStripMenuItem";
-            this.yellowToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.yellowToolStripMenuItem.Size = new System.Drawing.Size(132, 26);
             this.yellowToolStripMenuItem.Text = "Yellow";
             this.yellowToolStripMenuItem.Click += new System.EventHandler(this.yellowToolStripMenuItem_Click);
+            // 
+            // deleteToolStripMenuItem
+            // 
+            this.deleteToolStripMenuItem.Name = "deleteToolStripMenuItem";
+            this.deleteToolStripMenuItem.Size = new System.Drawing.Size(126, 24);
+            this.deleteToolStripMenuItem.Text = "Delete";
             // 
             // txtNumber
             // 
@@ -194,11 +199,38 @@
             this.txtNumber.TextChanged += new System.EventHandler(this.txtNumber_TextChanged);
             this.txtNumber.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtNumber_KeyPress);
             // 
+            // txtName
+            // 
+            this.txtName.Location = new System.Drawing.Point(675, 12);
+            this.txtName.Name = "txtName";
+            this.txtName.Size = new System.Drawing.Size(53, 25);
+            this.txtName.TabIndex = 3;
+            this.txtName.Visible = false;
+            this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
+            this.txtName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtName_KeyPress);
+            // 
+            // viewToolStripMenuItem
+            // 
+            this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.nameToolStripMenuItem1});
+            this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.viewToolStripMenuItem.Text = "View";
+            // 
+            // nameToolStripMenuItem1
+            // 
+            this.nameToolStripMenuItem1.CheckOnClick = true;
+            this.nameToolStripMenuItem1.Name = "nameToolStripMenuItem1";
+            this.nameToolStripMenuItem1.Size = new System.Drawing.Size(216, 26);
+            this.nameToolStripMenuItem1.Text = "Name";
+            this.nameToolStripMenuItem1.Click += new System.EventHandler(this.nameToolStripMenuItem1_Click);
+            // 
             // GraphicViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1087, 749);
+            this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtNumber);
             this.Controls.Add(this.pnlField);
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -231,5 +263,8 @@
         private System.Windows.Forms.ToolStripMenuItem redToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem yellowToolStripMenuItem;
         private System.Windows.Forms.TextBox txtNumber;
+        private System.Windows.Forms.TextBox txtName;
+        private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nameToolStripMenuItem1;
     }
 }

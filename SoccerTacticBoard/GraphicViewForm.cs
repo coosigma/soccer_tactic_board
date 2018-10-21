@@ -16,6 +16,7 @@ namespace SoccerTacticBoard
     {
         private BoardModel model;
         private bool dragging;
+        private bool showName=false;
         APiece topPiece; //  variable for selected piece
         APiece editPiece; // variable for piece to edit
         // variables for mouse position
@@ -58,7 +59,11 @@ namespace SoccerTacticBoard
             // draw all pieces in arrayList
             foreach (APiece p in pieces)
             {
-                p.Draw(g);
+                if (p is Player)
+                {
+                    Player player = (Player)p;
+                    player.Draw(g, showName);
+                }                
             }
         }
         /// <summary>Method: clearPanel
@@ -95,7 +100,9 @@ namespace SoccerTacticBoard
         private void pnlField_MouseClick(object sender, MouseEventArgs e)
         {
             if (txtNumber.Visible)
-                changePlayerNumber(); // A way to finish editing editPiece
+                changePlayerNumber(); // A way to finish editing Number of the editPiece
+            if (txtName.Visible)
+                changePlayerName(); // A way to finish editing Name of the editPiece
             if (e.Button == MouseButtons.Right)
             {
                 editPiece = null;
@@ -260,26 +267,6 @@ namespace SoccerTacticBoard
                 txtNumber.Focus();
             }           
         }
-        /// <summary>Method: txt_Leave
-        /// Generate the textbox for changing the player's number
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void txt_Leave(object sender, EventArgs e)
-        {
-            if (editPiece != null && editPiece is Player)
-            {
-                Player p = (Player)editPiece;
-                using (Graphics g = this.pnlField.CreateGraphics())
-                {
-                    g.DrawString(p.Number.ToString(), new Font(p.NumberFont, 16), new SolidBrush(p.NumberColor), ((TextBox)sender).Location);
-                }
-                ((TextBox)sender).Leave -= new EventHandler(txt_Leave);
-                pnlField.Controls.Remove((TextBox)sender);
-                ((TextBox)sender).Dispose();
-                pnlField.Invalidate();
-            }            
-        }
         /// <summary>Method: blueToolStripMenuItem
         /// Onlick blueToolStripMenuItem
         /// </summary>
@@ -293,7 +280,7 @@ namespace SoccerTacticBoard
                 Player p = (Player)editPiece;
                 p.Color = Color.Blue;
                 p.LineColor = Color.White;
-                p.NumberColor = Color.White;
+                p.InfoColor = Color.White;
                 model.UpdateViews();
             }
         }
@@ -310,7 +297,7 @@ namespace SoccerTacticBoard
                 Player p = (Player)editPiece;
                 p.Color = Color.Red;
                 p.LineColor = Color.White;
-                p.NumberColor = Color.White;
+                p.InfoColor = Color.White;
                 model.UpdateViews();
             }
         }
@@ -327,7 +314,7 @@ namespace SoccerTacticBoard
                 Player p = (Player)editPiece;
                 p.Color = Color.Yellow;
                 p.LineColor = Color.Black;
-                p.NumberColor = Color.Black;
+                p.InfoColor = Color.Black;
                 model.UpdateViews();
             }
         }
@@ -401,6 +388,78 @@ namespace SoccerTacticBoard
                 txtNumber.Visible = false;
                 RefreshView();
             }
+        }
+        /// <summary>Method: nameToolStripMenuItem_Click
+        /// Treat when nameToolStripMenuItem Click
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void nameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (editPiece != null && editPiece is Player)
+            {
+                Player p = (Player)editPiece;
+                int xOff = 1;
+                int yOff = 62;
+                Point l = new Point(p.x_pos + xOff, p.y_pos + yOff);
+                txtName.Text = p.Name;
+                txtName.Location = l;
+                txtName.Visible = true;
+                txtName.Focus();
+            }
+        }
+        /// <summary>Method: txtName_KeyPress
+        /// Treat when txtName KeyPress
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtName_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == (char)Keys.Enter) // When pressed <Enter> key
+            {
+                e.Handled = true; // Stop the warning tone
+                changePlayerName();
+            }
+        }
+        /// <summary>Method: txtName_TextChanged
+        /// Treat when txtName TextChanged
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txtName_TextChanged(object sender, EventArgs e)
+        {
+            String text = txtName.Text;
+            if (text.Length == 0)
+            {
+            }
+            else if (text.Length > 7)
+            {
+                txtNumber.Text = text.Substring(0, 7);
+                txtNumber.Select(text.Length, 0);
+            }
+        }
+        /// <summary>Method: changePlayerName
+        /// Change the Player's name
+        /// </summary>
+        private void changePlayerName()
+        {
+            if (editPiece != null && editPiece is Player)
+            {
+                Player p = (Player)editPiece;
+                p.Name = txtName.Text;
+                txtName.Visible = false;
+                RefreshView();
+            }
+        }
+        /// <summary>Method: nameToolStripMenuItem1_Click
+        /// Swap the status of show/hide Names
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void nameToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            showName = !showName;
+            RefreshView();
         }
     }
 }
