@@ -73,25 +73,6 @@ namespace SoccerTacticBoard
         {
             pnlField.Refresh();
         }
-
-        private void teamToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            int xp = 50;
-            int yp = 50;
-            int w = 25;
-            int h = w;
-            Color c = Color.Blue;
-            blueToolStripMenuItem.Checked = true;
-            ArrayList pieceBatch = new ArrayList();
-            for (int i = 1; i <= 3; i++)
-            {
-                string n = "player" + i.ToString();
-                Player player = new Player(n, xp, yp, w, h, c, i);
-                pieceBatch.Add(player);
-                xp += w;
-            }
-            model.AddPieceBatch(pieceBatch);
-        }
         /// <summary>Method: pnlField_MouseClick
         /// Check the right click menu and set variable to edit status
         /// </summary>
@@ -390,7 +371,7 @@ namespace SoccerTacticBoard
             }
         }
         /// <summary>Method: nameToolStripMenuItem_Click
-        /// Treat when nameToolStripMenuItem Click
+        /// Edite player's name
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -451,15 +432,59 @@ namespace SoccerTacticBoard
                 RefreshView();
             }
         }
-        /// <summary>Method: nameToolStripMenuItem1_Click
+        /// <summary>Method: namesToolStripMenuItem1_Click
         /// Swap the status of show/hide Names
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void nameToolStripMenuItem1_Click(object sender, EventArgs e)
+        private void namesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             showName = !showName;
             RefreshView();
+        }
+        /// <summary>Method: homeTeamToolStripMenuItem_Click
+        /// Create home team
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void homeTeamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int xp = 50;
+            int yp = 50;
+            int w = 25;
+            int h = w;
+            Color c = Color.Red;
+            ArrayList pieceBatch = new ArrayList();
+            for (int i = 1; i <= 11; i++)
+            {
+                string n = "player" + i.ToString();
+                Player player = new Player(n, xp, yp, w, h, c, i, true);
+                pieceBatch.Add(player);
+                xp += w;
+            }
+            model.AddPieceBatch(pieceBatch);
+        }
+        /// <summary>Method: awayTeamToolStripMenuItem_Click
+        /// Create away team
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void awayTeamToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int xp = 420;
+            int yp = 50;
+            int w = 25;
+            int h = w;
+            Color c = Color.Blue;
+            ArrayList pieceBatch = new ArrayList();
+            for (int i = 1; i <= 11; i++)
+            {
+                string n = "player" + i.ToString();
+                Player player = new Player(n, xp, yp, w, h, c, i, false);
+                pieceBatch.Add(player);
+                xp += w;
+            }
+            model.AddPieceBatch(pieceBatch);
         }
     }
 }

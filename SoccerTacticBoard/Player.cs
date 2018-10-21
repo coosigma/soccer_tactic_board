@@ -14,8 +14,9 @@ namespace SoccerTacticBoard
     class Player : APiece
     {
         private int number; // The number of the player
-        private Color infoColor; // The font colour of the number
-        private string infoFont;
+        private Color infoColor; // The font colour of the number and name
+        private string infoFont; // The Font name of the number and name
+        private bool isHomeTeam; // Whether in the home team or not;
         /// <summary>
         /// Constructor
         /// </summary>
@@ -26,12 +27,13 @@ namespace SoccerTacticBoard
         /// <param name="h"></param>
         /// <param name="c"></param>
         /// <param name="number"></param>
-        public Player(string name, int x, int y, int w, int h, Color c, int number)
+        public Player(string name, int x, int y, int w, int h, Color c, int number, bool home)
             : base(name, x, y, w, h, c)
         {
             this.number = number;
             infoColor = (c == Color.Yellow)? Color.Black: Color.White;
             infoFont = "Arial";
+            isHomeTeam = home;
         }
         /// <summary>override method: ToString
         /// to display piece as text
@@ -45,6 +47,11 @@ namespace SoccerTacticBoard
         {
             get { return number; }
             set { number = value; }
+        }
+        public bool IsHomeTeam
+        {
+            get { return isHomeTeam; }
+            set { isHomeTeam = value; }
         }
         public string InfoFont
         {
@@ -101,12 +108,22 @@ namespace SoccerTacticBoard
             float NumberXOff = (Highlight) ? 5f : 4.5f;
             float NumberYOff = (Highlight) ? 2.5f : 2f;
             int NumberFontSize = (Highlight) ? 16 : 14;
+            if (number >= 10)
+            {
+                NumberXOff = (Highlight) ? 1.1f : 0.5f;
+                NumberYOff = (Highlight) ? 3f : 2.5f;
+                NumberFontSize = (Highlight) ? 15 : 13;
+            }            
             WriteInfo(g, number.ToString(), NumberXOff, NumberYOff, NumberFontSize);
             if (showName)
             {
                 float NameXOff = (Highlight) ? -5.5f : -5f;
                 float NameYOff = (Highlight) ? 28.5f : 28f;
                 int NameFontSize = (Highlight) ? 10 : 8;
+                if (number >= 10)
+                {
+                    NameXOff -= 4.2f;
+                }
                 WriteInfo(g, name, NameXOff, NameYOff, NameFontSize);
             }
         }
