@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Collections;
+using System.Media;
 
 namespace SoccerTacticBoard
 {
@@ -15,6 +16,7 @@ namespace SoccerTacticBoard
     class Referee : APiece
     {
         private string type; // Referee type (R = Main Referee, A = Assistant Referee)
+        private SoundPlayer whistleSound = new SoundPlayer(Properties.Resources.whistle);
         /// <summary>
         /// Constructor
         /// </summary>
@@ -90,6 +92,10 @@ namespace SoccerTacticBoard
             g.DrawString(type, drawFont, drawBrush, x + xOff, y + yOff, drawFormat);
             drawFont.Dispose();
             drawBrush.Dispose();
+        }
+        public void Whistle()
+        {
+            whistleSound.Play();
         }
     }
 }

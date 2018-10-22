@@ -79,6 +79,7 @@
             this.pnlField.Size = new System.Drawing.Size(1067, 698);
             this.pnlField.TabIndex = 0;
             this.pnlField.MouseClick += new System.Windows.Forms.MouseEventHandler(this.pnlField_MouseClick);
+            this.pnlField.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.pnlField_MouseDoubleClick);
             this.pnlField.MouseDown += new System.Windows.Forms.MouseEventHandler(this.pnlField_MouseDown);
             this.pnlField.MouseMove += new System.Windows.Forms.MouseEventHandler(this.pnlField_MouseMove);
             this.pnlField.MouseUp += new System.Windows.Forms.MouseEventHandler(this.pnlField_MouseUp);
@@ -318,7 +319,7 @@
             this.toolStripMenuItem4,
             this.deleteAllRefereesToolStripMenuItem});
             this.cmsReferee.Name = "cmsReferee";
-            this.cmsReferee.Size = new System.Drawing.Size(218, 86);
+            this.cmsReferee.Size = new System.Drawing.Size(218, 58);
             // 
             // cmsBall
             // 
@@ -356,6 +357,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GraphicViewForm";
             this.Text = "GraphicViewForm";
+            this.Load += new System.EventHandler(this.GraphicViewForm_Load);
             this.cmsField.ResumeLayout(false);
             this.cmsPlayer.ResumeLayout(false);
             this.cmsReferee.ResumeLayout(false);

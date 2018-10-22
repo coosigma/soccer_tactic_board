@@ -9,6 +9,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace SoccerTacticBoard
 {
@@ -818,6 +819,35 @@ namespace SoccerTacticBoard
             mainRefereeCount = 0;
             assistantRefereeCount = 0;
             model.UpdateViews();
+        }
+
+        private void pnlField_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            ArrayList pl = model.PieceList;
+            foreach (APiece p in pl)
+            {
+                Point m = new Point(e.X, e.Y);
+                if (!(p is Referee))
+                    continue;
+                Referee r = (Referee)p;
+                if (r.Type.Equals("R"))
+                {
+                    if (r.HitTest(m))
+                    {
+                        r.Highlight = true;
+                        editPiece = r;
+                        model.BringToFront(r);
+                        r.Whistle();
+                        break;
+                    }
+                }
+            }
+        }
+
+        private void GraphicViewForm_Load(object sender, EventArgs e)
+        {
+            SoundPlayer sndVoid = new SoundPlayer(SoccerTacticBoard.Properties.Resources.Void);
+            sndVoid.Play();
         }
     }
 }
