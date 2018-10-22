@@ -46,7 +46,7 @@
             this.assistantRefereeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.namesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.cmsPiece = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmsPlayer = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colourToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.blueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,8 +60,14 @@
             this.deleteTheTeamToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.txtNumber = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
+            this.cmsReferee = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.cmsBall = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.deleteAllRefereesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.cmsField.SuspendLayout();
-            this.cmsPiece.SuspendLayout();
+            this.cmsPlayer.SuspendLayout();
+            this.cmsReferee.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlField
@@ -193,16 +199,16 @@
             this.namesToolStripMenuItem.Text = "Names";
             this.namesToolStripMenuItem.Click += new System.EventHandler(this.namesToolStripMenuItem_Click);
             // 
-            // cmsPiece
+            // cmsPlayer
             // 
-            this.cmsPiece.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.cmsPiece.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.cmsPlayer.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsPlayer.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.editToolStripMenuItem,
             this.deleteToolStripMenuItem,
             this.toolStripMenuItem3,
             this.deleteTheTeamToolStripMenuItem});
-            this.cmsPiece.Name = "cmsPiece";
-            this.cmsPiece.Size = new System.Drawing.Size(196, 82);
+            this.cmsPlayer.Name = "cmsPiece";
+            this.cmsPlayer.Size = new System.Drawing.Size(196, 82);
             // 
             // editToolStripMenuItem
             // 
@@ -304,6 +310,41 @@
             this.txtName.TextChanged += new System.EventHandler(this.txtName_TextChanged);
             this.txtName.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtName_KeyPress);
             // 
+            // cmsReferee
+            // 
+            this.cmsReferee.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsReferee.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.deleteToolStripMenuItem1,
+            this.toolStripMenuItem4,
+            this.deleteAllRefereesToolStripMenuItem});
+            this.cmsReferee.Name = "cmsReferee";
+            this.cmsReferee.Size = new System.Drawing.Size(218, 86);
+            // 
+            // cmsBall
+            // 
+            this.cmsBall.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsBall.Name = "cmsBall";
+            this.cmsBall.Size = new System.Drawing.Size(61, 4);
+            // 
+            // deleteToolStripMenuItem1
+            // 
+            this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
+            this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(217, 24);
+            this.deleteToolStripMenuItem1.Text = "Delete";
+            this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteToolStripMenuItem1_Click);
+            // 
+            // deleteAllRefereesToolStripMenuItem
+            // 
+            this.deleteAllRefereesToolStripMenuItem.Name = "deleteAllRefereesToolStripMenuItem";
+            this.deleteAllRefereesToolStripMenuItem.Size = new System.Drawing.Size(217, 24);
+            this.deleteAllRefereesToolStripMenuItem.Text = "Delete All Referees";
+            this.deleteAllRefereesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllRefereesToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(214, 6);
+            // 
             // GraphicViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
@@ -316,7 +357,8 @@
             this.Name = "GraphicViewForm";
             this.Text = "GraphicViewForm";
             this.cmsField.ResumeLayout(false);
-            this.cmsPiece.ResumeLayout(false);
+            this.cmsPlayer.ResumeLayout(false);
+            this.cmsReferee.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -332,7 +374,7 @@
         private System.Windows.Forms.ToolStripMenuItem refereeToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem teamToolStripMenuItem;
-        private System.Windows.Forms.ContextMenuStrip cmsPiece;
+        private System.Windows.Forms.ContextMenuStrip cmsPlayer;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem numberToolStripMenuItem;
@@ -354,5 +396,10 @@
         private System.Windows.Forms.ToolStripMenuItem deleteTheTeamToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem mainRefereeToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem assistantRefereeToolStripMenuItem;
+        private System.Windows.Forms.ContextMenuStrip cmsReferee;
+        private System.Windows.Forms.ContextMenuStrip cmsBall;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem deleteAllRefereesToolStripMenuItem;
     }
 }

@@ -157,15 +157,25 @@ namespace SoccerTacticBoard
                 }
                 catch (ArgumentOutOfRangeException) { }
                 RefreshView();
+                // Control the content menu
                 Point pt = pnlField.PointToScreen(e.Location);
                 if (editPiece == null)
                 {
                     pt = pnlField.PointToScreen(e.Location);
                     cmsField.Show(pt);
-                } else
+                }
+                else if (editPiece is Player)
                 {
                     checkColorChecked();
-                    cmsPiece.Show(pt);
+                    cmsPlayer.Show(pt);
+                }
+                else if (editPiece is Referee)
+                {
+                    cmsReferee.Show(pt);
+                }
+                else if (editPiece is Ball)
+                {
+                    cmsBall.Show(pt);
                 }
             }
         }
@@ -693,7 +703,11 @@ namespace SoccerTacticBoard
             }
             model.UpdateViews();
         }
-
+        /// <summary>Method: mainRefereeToolStripMenuItem_Click
+        /// Create a main referee
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void mainRefereeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             mainRefereeCount++;
@@ -709,7 +723,11 @@ namespace SoccerTacticBoard
             Referee referee = new Referee(n, xp, yp, pieceW, pieceH, c, "R");
             model.AddPiece(referee);
         }
-
+        /// <summary>Method: assistantRefereeToolStripMenuItem
+        /// Create a assistant referee
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void assistantRefereeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             assistantRefereeCount++;
@@ -724,6 +742,82 @@ namespace SoccerTacticBoard
             string n = "Assistant Referee"+ assistantRefereeCount;
             Referee referee = new Referee(n, xp, yp, pieceW, pieceH, c, "A");
             model.AddPiece(referee);
+        }
+        /// <summary>Method: deleteToolStripMenuItem1
+        /// Delete selected Referee
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void deleteToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            if (editPiece != null && editPiece is Referee)
+            {
+                Referee r = (Referee)editPiece;
+                if (r.Type.Equals("R"))
+                {
+                    mainRefereeCount--;
+                }
+                else if(r.Type.Equals("A"))
+                {
+                    assistantRefereeCount--;
+                }
+                else
+                {
+                    Console.WriteLine("Referee Type Error.");
+                }
+                try
+                {
+                    deletePiece(r);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+                editPiece = null;
+            }
+        }
+        /// <summary>Method: deleteAllRefereesToolStripMenuItem_Click
+        /// Delete all Referees Menu
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void deleteAllRefereesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = "Do you really want to delete all Referees?";
+            string caption = "Deletion Confirmation";
+            DialogResult result = showWarningMessageBox(message, caption);
+            if (result == DialogResult.Yes)
+            {
+                deleteAllReferees();
+            }
+            else if (result == DialogResult.No)
+            {
+                editPiece.Highlight = false;
+                return;
+            }
+        }
+        /// <summary>Method: deleteAllReferees
+        /// Delete all Referees
+        /// </summary>
+        private void deleteAllReferees()
+        {
+            for (int i = model.PieceList.Count; i > 0; i--)
+            {
+                APiece ap = (APiece)model.PieceList[i - 1];
+                if (!(ap is Referee))
+                    continue;
+                try
+                {
+                    model.PieceList.RemoveAt(i - 1);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+            mainRefereeCount = 0;
+            assistantRefereeCount = 0;
+            model.UpdateViews();
         }
     }
 }
