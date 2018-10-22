@@ -15,29 +15,16 @@ namespace SoccerTacticBoard
     {
         public enum ImageType { White, Orange};
         private ImageType ballImage;
-        public Ball(string name, int x, int y, int w, int h, Color c, int number)
-            : base(name, x, y, w, h, c)
+        public Ball(string name, int x, int y, int w, int h, ImageType i)
+            : base(name, x, y, w, h, Color.Empty)
         {
-            ballImage = ImageType.White;
+            ballImage = i;
         }
         public ImageType BallImage 
         {
             get { return ballImage; }
             set { ballImage = value; }
         }
-        public override void Draw(Graphics g)
-        {
-            if (g != null)
-            {
-                //  The background image of the ball
-                Image backImage = GetBackImage();
-                // Create Point for upper-left corner of image.
-                Point p = new Point(x, y);
-                // Draw image to screen.
-                g.DrawImage(backImage, p);
-            }
-        }
-
         public override int x_pos //non abstract property
         {
             get { return x; }
@@ -77,22 +64,42 @@ namespace SoccerTacticBoard
         {
             return "Ball at " + this.Position();
         }
+        /// <summary>Method: Draw
+        /// Override the virture draw method in base class
+        /// </summary>
+        /// <param name="g"></param>
+        public override void Draw(Graphics g)
+        {
+            if (g != null)
+            {
+                //  The background image of the ball
+                Image backImage = GetBackImage();
+                float xOff = (Highlight) ? 4.1f : 4.1f;
+                float yOff = (Highlight) ? 2.5f : 1.5f;
+                // Draw image to screen.
+                g.DrawImage(backImage, (float)x + xOff, (float)y + yOff);
+            }
+        }
+        /// <summary>Method: GetBackImage
+        /// To get correct image of the ball
+        /// </summary>
+        /// <returns></returns>
         public Image GetBackImage()
         {
             Image backImage;
             if (ballImage == ImageType.White)
             {
-               backImage = (Highlight)? Image.FromFile("WhiteBall_big.jpg") : Image.FromFile("WhiteBall.jpg");
+               backImage = Properties.Resources.WhiteBall;
             }
             else if (ballImage == ImageType.Orange)
             {
-                backImage = (Highlight) ? Image.FromFile("OrangeBall_big.jpg") : Image.FromFile("OrangeBall.jpg");
+                backImage = backImage = Properties.Resources.OrangeBall;
             }
             else
             {
-                backImage = (Highlight) ? Image.FromFile("WhiteBall_big.jpg") : Image.FromFile("WhiteBall.jpg");
+                backImage = backImage = Properties.Resources.WhiteBall;
             }
-            return backImage;
+            return (Highlight)? new Bitmap(backImage, new Size(25, 25)) : new Bitmap(backImage, new Size(21, 21));
         }
     }
 }

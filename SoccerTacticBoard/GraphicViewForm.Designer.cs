@@ -61,13 +61,20 @@
             this.txtNumber = new System.Windows.Forms.TextBox();
             this.txtName = new System.Windows.Forms.TextBox();
             this.cmsReferee = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.cmsBall = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.deleteToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.deleteAllRefereesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteAllRefereesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.cmsBall = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.whiteFootballToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.orangeFootBallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.whiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.orangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.deleteToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsField.SuspendLayout();
             this.cmsPlayer.SuspendLayout();
             this.cmsReferee.SuspendLayout();
+            this.cmsBall.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlField
@@ -158,6 +165,9 @@
             // 
             // ballToolStripMenuItem
             // 
+            this.ballToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.whiteFootballToolStripMenuItem,
+            this.orangeFootBallToolStripMenuItem});
             this.ballToolStripMenuItem.Name = "ballToolStripMenuItem";
             this.ballToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
             this.ballToolStripMenuItem.Text = "Ball";
@@ -174,14 +184,14 @@
             // mainRefereeToolStripMenuItem
             // 
             this.mainRefereeToolStripMenuItem.Name = "mainRefereeToolStripMenuItem";
-            this.mainRefereeToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.mainRefereeToolStripMenuItem.Size = new System.Drawing.Size(210, 26);
             this.mainRefereeToolStripMenuItem.Text = "Main Referee";
             this.mainRefereeToolStripMenuItem.Click += new System.EventHandler(this.mainRefereeToolStripMenuItem_Click);
             // 
             // assistantRefereeToolStripMenuItem
             // 
             this.assistantRefereeToolStripMenuItem.Name = "assistantRefereeToolStripMenuItem";
-            this.assistantRefereeToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.assistantRefereeToolStripMenuItem.Size = new System.Drawing.Size(210, 26);
             this.assistantRefereeToolStripMenuItem.Text = "Assistant Referee";
             this.assistantRefereeToolStripMenuItem.Click += new System.EventHandler(this.assistantRefereeToolStripMenuItem_Click);
             // 
@@ -190,7 +200,7 @@
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.namesToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(126, 24);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // namesToolStripMenuItem
@@ -321,18 +331,17 @@
             this.cmsReferee.Name = "cmsReferee";
             this.cmsReferee.Size = new System.Drawing.Size(218, 58);
             // 
-            // cmsBall
-            // 
-            this.cmsBall.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.cmsBall.Name = "cmsBall";
-            this.cmsBall.Size = new System.Drawing.Size(61, 4);
-            // 
             // deleteToolStripMenuItem1
             // 
             this.deleteToolStripMenuItem1.Name = "deleteToolStripMenuItem1";
             this.deleteToolStripMenuItem1.Size = new System.Drawing.Size(217, 24);
             this.deleteToolStripMenuItem1.Text = "Delete";
             this.deleteToolStripMenuItem1.Click += new System.EventHandler(this.deleteToolStripMenuItem1_Click);
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(214, 6);
             // 
             // deleteAllRefereesToolStripMenuItem
             // 
@@ -341,10 +350,56 @@
             this.deleteAllRefereesToolStripMenuItem.Text = "Delete All Referees";
             this.deleteAllRefereesToolStripMenuItem.Click += new System.EventHandler(this.deleteAllRefereesToolStripMenuItem_Click);
             // 
-            // toolStripMenuItem4
+            // cmsBall
             // 
-            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(214, 6);
+            this.cmsBall.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.cmsBall.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.whiteToolStripMenuItem,
+            this.orangeToolStripMenuItem,
+            this.toolStripMenuItem5,
+            this.deleteToolStripMenuItem2});
+            this.cmsBall.Name = "cmsBall";
+            this.cmsBall.Size = new System.Drawing.Size(211, 110);
+            // 
+            // whiteFootballToolStripMenuItem
+            // 
+            this.whiteFootballToolStripMenuItem.Name = "whiteFootballToolStripMenuItem";
+            this.whiteFootballToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.whiteFootballToolStripMenuItem.Text = "White Football";
+            this.whiteFootballToolStripMenuItem.Click += new System.EventHandler(this.whiteFootballToolStripMenuItem_Click);
+            // 
+            // orangeFootBallToolStripMenuItem
+            // 
+            this.orangeFootBallToolStripMenuItem.Name = "orangeFootBallToolStripMenuItem";
+            this.orangeFootBallToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.orangeFootBallToolStripMenuItem.Text = "Orange FootBall";
+            this.orangeFootBallToolStripMenuItem.Click += new System.EventHandler(this.orangeFootBallToolStripMenuItem_Click);
+            // 
+            // whiteToolStripMenuItem
+            // 
+            this.whiteToolStripMenuItem.Name = "whiteToolStripMenuItem";
+            this.whiteToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.whiteToolStripMenuItem.Text = "White";
+            this.whiteToolStripMenuItem.Click += new System.EventHandler(this.whiteToolStripMenuItem_Click);
+            // 
+            // orangeToolStripMenuItem
+            // 
+            this.orangeToolStripMenuItem.Name = "orangeToolStripMenuItem";
+            this.orangeToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.orangeToolStripMenuItem.Text = "Orange";
+            this.orangeToolStripMenuItem.Click += new System.EventHandler(this.orangeToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(207, 6);
+            // 
+            // deleteToolStripMenuItem2
+            // 
+            this.deleteToolStripMenuItem2.Name = "deleteToolStripMenuItem2";
+            this.deleteToolStripMenuItem2.Size = new System.Drawing.Size(210, 24);
+            this.deleteToolStripMenuItem2.Text = "Delete";
+            this.deleteToolStripMenuItem2.Click += new System.EventHandler(this.deleteToolStripMenuItem2_Click);
             // 
             // GraphicViewForm
             // 
@@ -361,6 +416,7 @@
             this.cmsField.ResumeLayout(false);
             this.cmsPlayer.ResumeLayout(false);
             this.cmsReferee.ResumeLayout(false);
+            this.cmsBall.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -403,5 +459,11 @@
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem4;
         private System.Windows.Forms.ToolStripMenuItem deleteAllRefereesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem whiteFootballToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem orangeFootBallToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem whiteToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem orangeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem2;
     }
 }

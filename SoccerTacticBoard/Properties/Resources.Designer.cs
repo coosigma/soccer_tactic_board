@@ -61,6 +61,16 @@ namespace SoccerTacticBoard.Properties {
         }
         
         /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap OrangeBall {
+            get {
+                object obj = ResourceManager.GetObject("OrangeBall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   查找类似于 System.IO.MemoryStream 的 System.IO.UnmanagedMemoryStream 类型的本地化资源。
         /// </summary>
         internal static System.IO.UnmanagedMemoryStream Void {
@@ -75,6 +85,16 @@ namespace SoccerTacticBoard.Properties {
         internal static System.IO.UnmanagedMemoryStream whistle {
             get {
                 return ResourceManager.GetStream("whistle", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   查找 System.Drawing.Bitmap 类型的本地化资源。
+        /// </summary>
+        internal static System.Drawing.Bitmap WhiteBall {
+            get {
+                object obj = ResourceManager.GetObject("WhiteBall", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
             }
         }
     }

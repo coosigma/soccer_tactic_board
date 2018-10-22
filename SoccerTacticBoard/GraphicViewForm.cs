@@ -10,6 +10,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using static SoccerTacticBoard.Ball;
 
 namespace SoccerTacticBoard
 {
@@ -27,6 +28,7 @@ namespace SoccerTacticBoard
         private static int pieceH = pieceW; // variable for piece's height
         private int mainRefereeCount = 0; // Record the number of main referee
         private int assistantRefereeCount = 0; // Record the number of assistant referee
+        private int ballCount = 0; // Record the number of ball
         APiece topPiece; //  variable for selected piece
         APiece editPiece; // variable for piece to edit
         // variables for mouse position
@@ -87,6 +89,48 @@ namespace SoccerTacticBoard
         {
             pnlField.Refresh();
         }
+        /// <summary>Method: checkMenuItems
+        /// According to the Number of Pieces to set the correct Menu Item status
+        /// </summary>
+        private void checkMenuItems()
+        {
+            /// The number of a team is from 0 to 18 /////////////
+            /// The number of main referee is only 1 or 0 ////////
+            /// The number of assistant referee is from 0 to 4 ///
+            /// The number of ball is only 1 or 0 ////////////////
+            if (homeTeamCount >= 18)
+                homeTeamToolStripMenuItem1.Enabled = false;
+            if (awayTeamCount >= 18)
+                awayTeamToolStripMenuItem1.Enabled = false;
+            if (homeTeamCount < 18)
+            {
+                homeTeamToolStripMenuItem1.Enabled = true;
+                if (homeTeamCount < 1)
+                    homeTeamToolStripMenuItem.Enabled = true; // Enable create team menu
+            }
+            if (awayTeamCount < 18)
+            {
+                awayTeamToolStripMenuItem1.Enabled = true;
+                if (awayTeamCount < 1)
+                    awayTeamToolStripMenuItem.Enabled = true; // Enable create team menu
+            }
+            if (mainRefereeCount >= 1)
+                mainRefereeToolStripMenuItem.Enabled = false;
+            if (assistantRefereeCount >= 4)
+                assistantRefereeToolStripMenuItem.Enabled = false;
+            if (mainRefereeCount < 1)
+                mainRefereeToolStripMenuItem.Enabled = true;
+            if (assistantRefereeCount < 4)
+                assistantRefereeToolStripMenuItem.Enabled = true;
+            if (ballCount > 0)
+            {
+                ballToolStripMenuItem.Enabled = false;
+            }
+            else
+            {
+                ballToolStripMenuItem.Enabled = true;
+            }
+        }
         /// <summary>Method: pnlField_MouseClick
         /// Check the right click menu and set variable to edit status
         /// </summary>
@@ -94,6 +138,8 @@ namespace SoccerTacticBoard
         /// <param name="e"></param>
         private void pnlField_MouseClick(object sender, MouseEventArgs e)
         {
+            if (e.Button == MouseButtons.Left)
+                return;
             if (txtNumber.Visible)
                 changePlayerNumber(); // A way to finish editing Number of the editPiece
             if (txtName.Visible)
@@ -101,34 +147,7 @@ namespace SoccerTacticBoard
             if (e.Button == MouseButtons.Right)
             {
                 mouseLocation = e.Location;
-                /// The numbers of a team is from 0 to 18 ////////////////
-                /// The numbers of main referee is only 1 or 0 ///////////
-                /// /// The numbers of assistant referee is from 0 to 4 //
-                if (homeTeamCount >= 18)
-                    homeTeamToolStripMenuItem1.Enabled = false;
-                if (awayTeamCount >= 18)
-                    awayTeamToolStripMenuItem1.Enabled = false;
-                if (homeTeamCount < 18)
-                {
-                    homeTeamToolStripMenuItem1.Enabled = true;
-                    if (homeTeamCount < 1)
-                        homeTeamToolStripMenuItem.Enabled = true; // Enable create team menu
-                }               
-                if (awayTeamCount < 18)
-                {
-                    awayTeamToolStripMenuItem1.Enabled = true;
-                    if (awayTeamCount < 1)
-                        awayTeamToolStripMenuItem.Enabled = true; // Enable create team menu
-                }
-                if (mainRefereeCount >= 1)
-                    mainRefereeToolStripMenuItem.Enabled = false;
-                if (assistantRefereeCount >= 4)
-                    assistantRefereeToolStripMenuItem.Enabled = false;
-                if (mainRefereeCount < 1)
-                    mainRefereeToolStripMenuItem.Enabled = true;
-                if (assistantRefereeCount < 4)
-                    assistantRefereeToolStripMenuItem.Enabled = true;
-                /////////////////////////////////////////////////////////
+                checkMenuItems();
                 editPiece = null;
                 ArrayList pl = model.PieceList;
                 for (int i = pl.Count; i > 0; i--)
@@ -176,16 +195,39 @@ namespace SoccerTacticBoard
                 }
                 else if (editPiece is Ball)
                 {
+                    checkBallTypeChecked();
                     cmsBall.Show(pt);
                 }
             }
         }
+        /// <summary>Method: checkBallTypeChecked
+        /// Make the Ball type ToolStripMenuItems checked right
+        /// </summary>
+        private void checkBallTypeChecked()
+        {
+            if (editPiece != null && editPiece is Ball)
+            {
+                Ball b = (Ball)editPiece;
+                if (b.BallImage == ImageType.White)
+                {
+                    ExclusiveCheckToolStripMenuItems(whiteToolStripMenuItem);
+                }
+                else if (b.BallImage == ImageType.Orange)
+                {
+                    ExclusiveCheckToolStripMenuItems(orangeToolStripMenuItem);
+                }
+                else
+                {
+                    Console.WriteLine("Ball Image Type Error.");
+                }
+            }                
+        }
         /// <summary>Method: checkColorChecked
         /// Make the color ToolStripMenuItems checked right
         /// </summary>
-        public void checkColorChecked()
+        private void checkColorChecked()
         {
-            if(editPiece != null)
+            if(editPiece != null && editPiece is Player)
             {
                 if (editPiece.Color == Color.Blue)
                 {
@@ -211,7 +253,6 @@ namespace SoccerTacticBoard
         /// <param name="e"></param>
         private void pnlField_MouseDown(object sender, MouseEventArgs e)
         {
-            //if (e.Button == MouseButtons.Left && topPiece != null)
             if (e.Button == MouseButtons.Left)
             {
                 topPiece = null;
@@ -856,6 +897,101 @@ namespace SoccerTacticBoard
         {
             SoundPlayer sndVoid = new SoundPlayer(SoccerTacticBoard.Properties.Resources.Void);
             sndVoid.Play();
+        }
+        /// <summary>Method: whiteFootballToolStripMenuItem_Click
+        /// Create a white ball
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void whiteFootballToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ballCount++;
+            int xp = 0;
+            int yp = 0;
+            if (mouseLocation != null)
+            {
+                xp = mouseLocation.X - (pieceW / 2);
+                yp = mouseLocation.Y - (pieceH / 2);
+            }
+            string n = "Ball";
+            Ball ball = new Ball(n, xp, yp, pieceW, pieceH, ImageType.White);
+            model.AddPiece(ball);
+        }
+        /// <summary>Method: orangeFootballToolStripMenuItem_Click
+        /// Create an orange ball
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void orangeFootBallToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ballCount++;
+            int xp = 0;
+            int yp = 0;
+            if (mouseLocation != null)
+            {
+                xp = mouseLocation.X - (pieceW / 2);
+                yp = mouseLocation.Y - (pieceH / 2);
+            }
+            string n = "Ball";
+            Ball ball = new Ball(n, xp, yp, pieceW, pieceH, ImageType.Orange);
+            model.AddPiece(ball);
+        }
+        /// <summary>Method: whiteToolStripMenuItem_Click
+        /// Change the ball to White Ball
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void whiteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            changeBallType(ImageType.White);
+        }
+        /// <summary>Method: orangeToolStripMenuItem_Click
+        /// Change the ball to Orange Ball
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void orangeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            changeBallType(ImageType.Orange);
+        }
+        /// <summary>Method: changeBallType
+        /// Change the ball image type
+        /// </summary>
+        /// <param name="i"></param>
+        private void changeBallType(ImageType i)
+        {
+            ArrayList pl = model.PieceList;
+            foreach (APiece p in pl)
+            {
+                if (!(p is Ball))
+                    continue;
+                Ball b = (Ball)p;
+                b.BallImage = i;
+                break;
+            }
+            model.UpdateViews();
+        }
+        /// <summary>Method: deleteToolStripMenuItem2_Click
+        /// Delete the ball
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void deleteToolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            if (editPiece != null && editPiece is Ball)
+            {
+                try
+                {
+                    model.PieceList.Remove(editPiece);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+                editPiece = null;
+                ballCount = 0;
+                model.UpdateViews();
+            }
         }
     }
 }
