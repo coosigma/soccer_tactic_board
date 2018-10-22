@@ -820,7 +820,11 @@ namespace SoccerTacticBoard
             assistantRefereeCount = 0;
             model.UpdateViews();
         }
-
+        /// <summary>Method: pnlField_MouseDoubleClick
+        /// Main Referee whistle
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void pnlField_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             ArrayList pl = model.PieceList;
@@ -843,7 +847,11 @@ namespace SoccerTacticBoard
                 }
             }
         }
-
+        /// <summary>Method: GraphicViewForm_Load
+        /// When Load the form (solving sound lag)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void GraphicViewForm_Load(object sender, EventArgs e)
         {
             SoundPlayer sndVoid = new SoundPlayer(SoccerTacticBoard.Properties.Resources.Void);
