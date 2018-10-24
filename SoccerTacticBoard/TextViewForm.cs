@@ -32,7 +32,12 @@ namespace SoccerTacticBoard
 
         public void RefreshView()
         {
-            throw new NotImplementedException();
+            // clear listBox
+            lsbLog.Items.Clear();
+            foreach (APiece p in model.PieceList)
+            {
+                lsbLog.Items.Add(p);
+            }
         }
     }
 }

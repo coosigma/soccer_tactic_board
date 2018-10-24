@@ -15,6 +15,15 @@ namespace SoccerTacticBoard
     {
         private ArrayList pieceList;
         private BoardController controller;
+        public int homeTeamCount = 0; // Record the number of the home team
+        public int awayTeamCount = 0; // Record the number of the away team
+        public Color homeTeamColor = Color.Red; // Record the color of the home team
+        public Color awayTeamColor = Color.Blue; // Record the color of the away team
+        public int pieceW = 25; // variable for piece's width
+        public int pieceH = 25; // variable for piece's height
+        public int mainRefereeCount = 0; // Record the number of main referee
+        public int assistantRefereeCount = 0; // Record the number of assistant referee
+        public int ballCount = 0; // Record the number of ball
         /// <summary>
         /// Constructor
         /// </summary>

@@ -17,18 +17,9 @@ namespace SoccerTacticBoard
     public partial class GraphicViewForm : Form, IBoardView
     {
         private BoardModel model;
-        private int homeTeamCount = 0; // Record the number of the home team
-        private int awayTeamCount = 0; // Record the number of the away team
-        private Color homeTeamColor = Color.Red; // Record the color of the home team
-        private Color awayTeamColor = Color.Blue; // Record the color of the away team
         private bool dragging;
         private bool showName=false;
         private Point mouseLocation; // variable for mouse location
-        private static int pieceW = 25; // variable for piece's width
-        private static int pieceH = pieceW; // variable for piece's height
-        private int mainRefereeCount = 0; // Record the number of main referee
-        private int assistantRefereeCount = 0; // Record the number of assistant referee
-        private int ballCount = 0; // Record the number of ball
         APiece topPiece; //  variable for selected piece
         APiece editPiece; // variable for piece to edit
         // variables for mouse position
@@ -98,31 +89,31 @@ namespace SoccerTacticBoard
             /// The number of main referee is only 1 or 0 ////////
             /// The number of assistant referee is from 0 to 4 ///
             /// The number of ball is only 1 or 0 ////////////////
-            if (homeTeamCount >= 18)
+            if (model.homeTeamCount >= 18)
                 homeTeamToolStripMenuItem1.Enabled = false;
-            if (awayTeamCount >= 18)
+            if (model.awayTeamCount >= 18)
                 awayTeamToolStripMenuItem1.Enabled = false;
-            if (homeTeamCount < 18)
+            if (model.homeTeamCount < 18)
             {
                 homeTeamToolStripMenuItem1.Enabled = true;
-                if (homeTeamCount < 1)
+                if (model.homeTeamCount < 1)
                     homeTeamToolStripMenuItem.Enabled = true; // Enable create team menu
             }
-            if (awayTeamCount < 18)
+            if (model.awayTeamCount < 18)
             {
                 awayTeamToolStripMenuItem1.Enabled = true;
-                if (awayTeamCount < 1)
+                if (model.awayTeamCount < 1)
                     awayTeamToolStripMenuItem.Enabled = true; // Enable create team menu
             }
-            if (mainRefereeCount >= 1)
+            if (model.mainRefereeCount >= 1)
                 mainRefereeToolStripMenuItem.Enabled = false;
-            if (assistantRefereeCount >= 4)
+            if (model.assistantRefereeCount >= 4)
                 assistantRefereeToolStripMenuItem.Enabled = false;
-            if (mainRefereeCount < 1)
+            if (model.mainRefereeCount < 1)
                 mainRefereeToolStripMenuItem.Enabled = true;
-            if (assistantRefereeCount < 4)
+            if (model.assistantRefereeCount < 4)
                 assistantRefereeToolStripMenuItem.Enabled = true;
-            if (ballCount > 0)
+            if (model.ballCount > 0)
             {
                 ballToolStripMenuItem.Enabled = false;
             }
@@ -363,11 +354,11 @@ namespace SoccerTacticBoard
             }
             if (p.IsHomeTeam) // Change the variable of the team color
             {
-                homeTeamColor = c;
+                model.homeTeamColor = c;
             }
             else
             {
-                awayTeamColor = c;
+                model.awayTeamColor = c;
             }
         }
         /// <summary>Method: blueToolStripMenuItem
@@ -570,15 +561,15 @@ namespace SoccerTacticBoard
             int xp = 50;
             int yp = 50;
             Color c = Color.Red;
-            homeTeamColor = c;
+            model.homeTeamColor = c;
             ArrayList pieceBatch = new ArrayList();
             for (int i = 1; i <= pop; i++)
             {
-                homeTeamCount++;
-                string n = "player" + homeTeamCount.ToString();
-                Player player = new Player(n, xp, yp, pieceW, pieceH, c, homeTeamCount, true);
+                model.homeTeamCount++;
+                string n = "player" + model.homeTeamCount.ToString();
+                Player player = new Player(n, xp, yp, model.pieceW, model.pieceH, c, model.homeTeamCount, true);
                 pieceBatch.Add(player);
-                xp += pieceW;
+                xp += model.pieceW;
             }
             model.AddPieceBatch(pieceBatch);
             homeTeamToolStripMenuItem.Enabled = false;
@@ -594,15 +585,15 @@ namespace SoccerTacticBoard
             int xp = 420;
             int yp = 50;
             Color c = Color.Blue;
-            awayTeamColor = c;
+            model.awayTeamColor = c;
             ArrayList pieceBatch = new ArrayList();
             for (int i = 1; i <= pop; i++)
             {
-                awayTeamCount++;
-                string n = "player" + awayTeamCount.ToString();
-                Player player = new Player(n, xp, yp, pieceW, pieceH, c, awayTeamCount, false);
+                model.awayTeamCount++;
+                string n = "player" + model.awayTeamCount.ToString();
+                Player player = new Player(n, xp, yp, model.pieceW, model.pieceH, c, model.awayTeamCount, false);
                 pieceBatch.Add(player);
-                xp += pieceW;
+                xp += model.pieceW;
             }
             model.AddPieceBatch(pieceBatch);
             awayTeamToolStripMenuItem.Enabled = false;
@@ -614,33 +605,33 @@ namespace SoccerTacticBoard
         /// <param name="e"></param>
         private void homeTeamToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            homeTeamCount++;
+            model.homeTeamCount++;
             int xp = 0;
             int yp = 0;
             if (mouseLocation != null)
             {
-                xp = mouseLocation.X - (pieceW / 2);
-                yp = mouseLocation.Y - (pieceH / 2);
+                xp = mouseLocation.X - (model.pieceW / 2);
+                yp = mouseLocation.Y - (model.pieceH / 2);
             }
-            Color c = homeTeamColor;
-            string n = "player" + homeTeamCount.ToString();
-            Player player = new Player(n, xp, yp, pieceW, pieceH, c, homeTeamCount, true);
+            Color c = model.homeTeamColor;
+            string n = "player" + model.homeTeamCount.ToString();
+            Player player = new Player(n, xp, yp, model.pieceW, model.pieceH, c, model.homeTeamCount, true);
             model.AddPiece(player);
         }
 
         private void awayTeamToolStripMenuItem1_Click(object sender, EventArgs e)
         {
-            awayTeamCount++;
+            model.awayTeamCount++;
             int xp = 0;
             int yp = 0;
             if (mouseLocation != null)
             {
-                xp = mouseLocation.X - (pieceW / 2);
-                yp = mouseLocation.Y - (pieceH / 2);
+                xp = mouseLocation.X - (model.pieceW / 2);
+                yp = mouseLocation.Y - (model.pieceH / 2);
             }
-            Color c = awayTeamColor;
-            string n = "player" + awayTeamCount.ToString();
-            Player player = new Player(n, xp, yp, pieceW, pieceH, c, awayTeamCount, false);
+            Color c = model.awayTeamColor;
+            string n = "player" + model.awayTeamCount.ToString();
+            Player player = new Player(n, xp, yp, model.pieceW, model.pieceH, c, model.awayTeamCount, false);
             model.AddPiece(player);
         }
         /// <summary>Method: deleteToolStripMenuItem_Click
@@ -655,11 +646,11 @@ namespace SoccerTacticBoard
                 Player p = (Player)editPiece;
                 if (p.IsHomeTeam)
                 {
-                    homeTeamCount--;
+                    model.homeTeamCount--;
                 }
                 else
                 {
-                    awayTeamCount--;
+                    model.awayTeamCount--;
                 }
                 deletePiece(p);
                 editPiece = null;
@@ -740,11 +731,11 @@ namespace SoccerTacticBoard
             }
             if (p.IsHomeTeam)
             {
-                homeTeamCount = 0;
+                model.homeTeamCount = 0;
             }
             else
             {
-                awayTeamCount = 0;
+                model.awayTeamCount = 0;
             }
             model.UpdateViews();
         }
@@ -755,17 +746,17 @@ namespace SoccerTacticBoard
         /// <param name="e"></param>
         private void mainRefereeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            mainRefereeCount++;
+            model.mainRefereeCount++;
             int xp = 0;
             int yp = 0;
             if (mouseLocation != null)
             {
-                xp = mouseLocation.X - (pieceW / 2);
-                yp = mouseLocation.Y - (pieceH / 2);
+                xp = mouseLocation.X - (model.pieceW / 2);
+                yp = mouseLocation.Y - (model.pieceH / 2);
             }
             Color c = Color.Black;
             string n = "Referee";
-            Referee referee = new Referee(n, xp, yp, pieceW, pieceH, c, "R");
+            Referee referee = new Referee(n, xp, yp, model.pieceW, model.pieceH, c, "R");
             model.AddPiece(referee);
         }
         /// <summary>Method: assistantRefereeToolStripMenuItem
@@ -775,17 +766,17 @@ namespace SoccerTacticBoard
         /// <param name="e"></param>
         private void assistantRefereeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            assistantRefereeCount++;
+            model.assistantRefereeCount++;
             int xp = 0;
             int yp = 0;
             if (mouseLocation != null)
             {
-                xp = mouseLocation.X - (pieceW / 2);
-                yp = mouseLocation.Y - (pieceH / 2);
+                xp = mouseLocation.X - (model.pieceW / 2);
+                yp = mouseLocation.Y - (model.pieceH / 2);
             }
             Color c = Color.Black;
-            string n = "Assistant Referee"+ assistantRefereeCount;
-            Referee referee = new Referee(n, xp, yp, pieceW, pieceH, c, "A");
+            string n = "Assistant Referee"+ model.assistantRefereeCount;
+            Referee referee = new Referee(n, xp, yp, model.pieceW, model.pieceH, c, "A");
             model.AddPiece(referee);
         }
         /// <summary>Method: deleteToolStripMenuItem1
@@ -800,11 +791,11 @@ namespace SoccerTacticBoard
                 Referee r = (Referee)editPiece;
                 if (r.Type.Equals("R"))
                 {
-                    mainRefereeCount--;
+                    model.mainRefereeCount--;
                 }
                 else if(r.Type.Equals("A"))
                 {
-                    assistantRefereeCount--;
+                    model.assistantRefereeCount--;
                 }
                 else
                 {
@@ -860,8 +851,8 @@ namespace SoccerTacticBoard
                     MessageBox.Show(ex.ToString());
                 }
             }
-            mainRefereeCount = 0;
-            assistantRefereeCount = 0;
+            model.mainRefereeCount = 0;
+            model.assistantRefereeCount = 0;
             model.UpdateViews();
         }
         /// <summary>Method: pnlField_MouseDoubleClick
@@ -908,16 +899,16 @@ namespace SoccerTacticBoard
         /// <param name="e"></param>
         private void whiteFootballToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ballCount++;
+            model.ballCount++;
             int xp = 0;
             int yp = 0;
             if (mouseLocation != null)
             {
-                xp = mouseLocation.X - (pieceW / 2);
-                yp = mouseLocation.Y - (pieceH / 2);
+                xp = mouseLocation.X - (model.pieceW / 2);
+                yp = mouseLocation.Y - (model.pieceH / 2);
             }
             string n = "Ball";
-            Ball ball = new Ball(n, xp, yp, pieceW, pieceH, ImageType.White);
+            Ball ball = new Ball(n, xp, yp, model.pieceW, model.pieceH, ImageType.White);
             model.AddPiece(ball);
         }
         /// <summary>Method: orangeFootballToolStripMenuItem_Click
@@ -927,16 +918,16 @@ namespace SoccerTacticBoard
         /// <param name="e"></param>
         private void orangeFootBallToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ballCount++;
+            model.ballCount++;
             int xp = 0;
             int yp = 0;
             if (mouseLocation != null)
             {
-                xp = mouseLocation.X - (pieceW / 2);
-                yp = mouseLocation.Y - (pieceH / 2);
+                xp = mouseLocation.X - (model.pieceW / 2);
+                yp = mouseLocation.Y - (model.pieceH / 2);
             }
             string n = "Ball";
-            Ball ball = new Ball(n, xp, yp, pieceW, pieceH, ImageType.Orange);
+            Ball ball = new Ball(n, xp, yp, model.pieceW, model.pieceH, ImageType.Orange);
             model.AddPiece(ball);
         }
         /// <summary>Method: whiteToolStripMenuItem_Click
@@ -992,7 +983,7 @@ namespace SoccerTacticBoard
                     MessageBox.Show(ex.ToString());
                 }
                 editPiece = null;
-                ballCount = 0;
+                model.ballCount = 0;
                 model.UpdateViews();
             }
         }

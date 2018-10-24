@@ -33,7 +33,7 @@ namespace SoccerTacticBoard
         {
             foreach (IBoardView v in ViewList)
             {
-                if (v.GetType() == typeof(GraphicViewForm))
+                if (v.GetType() != typeof(FilterViewForm))
                 {
                     v.RefreshView();
                 }

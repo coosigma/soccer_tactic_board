@@ -41,7 +41,8 @@ namespace SoccerTacticBoard
         /// <returns></returns>
         public override string ToString()
         {
-            return "Player: " + Number.ToString() + " ("+name+") at " + this.Position();
+            string side = (isHomeTeam) ? "Home" : "Away";
+            return side + " player" + Number.ToString() + " ("+name+") at " + this.Position();
         }
         public int Number
         {
