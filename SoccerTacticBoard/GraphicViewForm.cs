@@ -253,6 +253,9 @@ namespace SoccerTacticBoard
         /// <param name="e"></param>
         private void pnlField_MouseDown(object sender, MouseEventArgs e)
         {
+            currentPosition = new Point(e.X, e.Y);
+            if (e.Button == MouseButtons.Right)
+                return;
             if (e.Button == MouseButtons.Left)
             {
                 topPiece = null;
