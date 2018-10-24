@@ -86,8 +86,21 @@ namespace SoccerTacticBoard
                     return;
                 }
                 int number = Convert.ToInt32(txbNumber.Text);
-                Color c = (side.Equals("Home")) ? model.homeTeamColor : model.awayTeamColor;
-                Player player = new Player(name, x, y, model.pieceW, model.pieceH, c, number, side.Equals("Home"));
+                Color c;
+                bool type;
+                if (side.Equals("Home"))
+                {
+                    c = model.homeTeamColor;
+                    type = true;
+                    model.homeTeamCount++;
+                }
+                else
+                {
+                    c = model.awayTeamColor;
+                    type = false;
+                    model.awayTeamCount++;
+                }
+                Player player = new Player(name, x, y, model.pieceW, model.pieceH, c, number, type);
                 model.AddPiece(player);
             }
             else if (obj.Equals("Ball"))
@@ -98,9 +111,35 @@ namespace SoccerTacticBoard
                     return;
                 }
                 string name = "Ball";
+                model.ballCount++;
                 Ball.ImageType type = (cbbBallType.Text.Equals("White")) ? Ball.ImageType.White : Ball.ImageType.Orange;
                 Ball ball = new Ball(name, x, y, model.pieceW, model.pieceH, type);
                 model.AddPiece(ball);
+            }
+            else if (obj.Equals("Referee"))
+            {
+                if (cbbRefereeType.Text.Equals(o))
+                {
+                    MessageBox.Show("Please type in the type of referee");
+                    return;
+                }
+                string name;
+                string ref_type;
+                if (cbbRefereeType.Text.Equals("Main"))
+                {
+                    name = "Referee";
+                    ref_type = "R";
+                    model.mainRefereeCount++;
+                }
+                else
+                {
+                    name = "Assistant Referee "+model.assistantRefereeCount;
+                    ref_type = "A";
+                    model.assistantRefereeCount++;
+                }
+                Color c = Color.Black;
+                Referee referee = new Referee(name, x, y, model.pieceW, model.pieceH, c, ref_type);
+                model.AddPiece(referee);
             }
         }
 
