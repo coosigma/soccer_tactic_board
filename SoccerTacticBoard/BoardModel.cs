@@ -11,6 +11,14 @@ namespace SoccerTacticBoard
     /// The model of the project as this is a MVC programme.
     /// </summary>
 {
+    enum Errors
+    {
+        NoError,
+        NotFound,
+        ExceedMax,
+        ExceedRange,
+        InvalidPara
+    }
     public class BoardModel
     {
         private ArrayList pieceList;
@@ -24,6 +32,10 @@ namespace SoccerTacticBoard
         public int mainRefereeCount = 0; // Record the number of main referee
         public int assistantRefereeCount = 0; // Record the number of assistant referee
         public int ballCount = 0; // Record the number of ball
+        public int max_team_players = 18;
+        public int max_ball = 1;
+        public int max_main_referee = 1;
+        public int max_assistant_referee = 4;
         /// <summary>
         /// Constructor
         /// </summary>
@@ -139,6 +151,31 @@ namespace SoccerTacticBoard
         public void UpdateViews()
         {
             controller.UpdateViews();
+        }
+        public bool checkExceedMax(string obj)
+        {
+            if (obj.Equals("home team"))
+            {
+                return homeTeamCount >= max_team_players;
+            }
+            else if (obj.Equals("away team"))
+            {
+                return awayTeamCount >= max_team_players;
+            }
+            else if (obj.Equals("main referee"))
+            {
+                return mainRefereeCount >= max_main_referee;
+            }
+            else if (obj.Equals("assistant referee"))
+            {
+                return assistantRefereeCount >= max_assistant_referee;
+            }
+            else if (obj.Equals("ball"))
+            {
+                return ballCount >= max_ball;
+            }
+            Console.WriteLine("Check Maximum Type Error.");
+            return true; // type error cannot pass this check
         }
     }
 }

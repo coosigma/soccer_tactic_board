@@ -26,7 +26,7 @@ namespace SoccerTacticBoard
         /// <param name="w"></param>
         /// <param name="h"></param>
         /// <param name="c"></param>
-        /// <param name="number"></param>
+        /// <param name="t"></param>
         public Referee(string name, int x, int y, int w, int h, Color c, string t)
            : base(name, x, y, w, h, c)
         {

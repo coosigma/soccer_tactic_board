@@ -89,38 +89,24 @@ namespace SoccerTacticBoard
             /// The number of main referee is only 1 or 0 ////////
             /// The number of assistant referee is from 0 to 4 ///
             /// The number of ball is only 1 or 0 ////////////////
-            if (model.homeTeamCount >= 18)
-                homeTeamToolStripMenuItem1.Enabled = false;
-            if (model.awayTeamCount >= 18)
-                awayTeamToolStripMenuItem1.Enabled = false;
-            if (model.homeTeamCount < 18)
-            {
-                homeTeamToolStripMenuItem1.Enabled = true;
-                if (model.homeTeamCount < 1)
-                    homeTeamToolStripMenuItem.Enabled = true; // Enable create team menu
-            }
-            if (model.awayTeamCount < 18)
-            {
-                awayTeamToolStripMenuItem1.Enabled = true;
-                if (model.awayTeamCount < 1)
-                    awayTeamToolStripMenuItem.Enabled = true; // Enable create team menu
-            }
-            if (model.mainRefereeCount >= 1)
-                mainRefereeToolStripMenuItem.Enabled = false;
-            if (model.assistantRefereeCount >= 4)
-                assistantRefereeToolStripMenuItem.Enabled = false;
-            if (model.mainRefereeCount < 1)
-                mainRefereeToolStripMenuItem.Enabled = true;
-            if (model.assistantRefereeCount < 4)
-                assistantRefereeToolStripMenuItem.Enabled = true;
-            if (model.ballCount > 0)
-            {
-                ballToolStripMenuItem.Enabled = false;
-            }
-            else
-            {
-                ballToolStripMenuItem.Enabled = true;
-            }
+
+            // create player : home team
+            homeTeamToolStripMenuItem1.Enabled = model.checkExceedMax("home team") ? false : true;
+            // create player : away team
+            awayTeamToolStripMenuItem1.Enabled = model.checkExceedMax("away team") ? false : true;
+
+            // create home team
+            homeTeamToolStripMenuItem.Enabled = (model.homeTeamCount < 1) ? true : false;
+            // create away team
+            awayTeamToolStripMenuItem.Enabled = (model.awayTeamCount < 1) ? true : false;
+
+            // create main referee
+            mainRefereeToolStripMenuItem.Enabled = model.checkExceedMax("main referee") ? false : true;
+            // create assistant referee
+            mainRefereeToolStripMenuItem.Enabled = model.checkExceedMax("assistant referee") ? false : true;
+
+            // creat ball
+            ballToolStripMenuItem.Enabled = model.checkExceedMax("ball") ? false : true;
         }
         /// <summary>Method: pnlField_MouseClick
         /// Check the right click menu and set variable to edit status
@@ -775,7 +761,7 @@ namespace SoccerTacticBoard
                 yp = mouseLocation.Y - (model.pieceH / 2);
             }
             Color c = Color.Black;
-            string n = "Assistant Referee"+ model.assistantRefereeCount;
+            string n = "Assistant Referee "+ model.assistantRefereeCount;
             Referee referee = new Referee(n, xp, yp, model.pieceW, model.pieceH, c, "A");
             model.AddPiece(referee);
         }
