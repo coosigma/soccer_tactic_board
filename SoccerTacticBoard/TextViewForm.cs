@@ -317,5 +317,101 @@ namespace SoccerTacticBoard
             }
             model.UpdateViews();
         }
+        /// <summary>Method: txbNumber_TextChanged
+        /// Check the number of input must be a 
+        /// positive integer with maximum 2 digits
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txbNumber_TextChanged(object sender, EventArgs e)
+        {
+            String text = txbNumber.Text;
+            if (text.Length > 2)
+            {
+                txbNumber.Text = text.Substring(0, 2);
+            }
+            else
+            {
+                Match m = Regex.Match(text, @"\d{1,2}$");
+                while (!m.Success && text.Length > 0)
+                {
+                    text = text.Substring(0, text.Length - 1);
+                    m = Regex.Match(text, @"\d{1,2}$");
+                }
+                txbNumber.Text = text;
+                txbNumber.Select(text.Length, 0);
+            }
+        }
+        /// <summary>Method: txbX_TextChanged
+        /// Check the number of input must be a 
+        /// positive integer with maximum 3 digits
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txbX_TextChanged(object sender, EventArgs e)
+        {
+            String text = txbX.Text;
+            if (text.Length > 3)
+            {
+                txbX.Text = text.Substring(0, 3);
+            }
+            else
+            {
+                Match m = Regex.Match(text, @"\d{1,3}$");
+                while (!m.Success && text.Length > 0)
+                {
+                    text = text.Substring(0, text.Length - 1);
+                    m = Regex.Match(text, @"\d{1,3}$");
+                }
+                txbX.Text = text;
+                txbX.Select(text.Length, 0);
+            }
+        }
+        /// <summary>Method: txbY_TextChanged
+        /// Check the number of input must be a 
+        /// positive integer with maximum 3 digits
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void txbY_TextChanged(object sender, EventArgs e)
+        {
+            String text = txbY.Text;
+            if (text.Length > 3)
+            {
+                txbY.Text = text.Substring(0, 3);
+            }
+            else
+            {
+                Match m = Regex.Match(text, @"\d{1,3}$");
+                while (!m.Success && text.Length > 0)
+                {
+                    text = text.Substring(0, text.Length - 1);
+                    m = Regex.Match(text, @"\d{1,3}$");
+                }
+                txbY.Text = text;
+                txbY.Select(text.Length, 0);
+            }
+        }
+        /// <summary>Method: btnClear_Click
+        /// Clear all user inputs
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            var checkedButton = Controls.OfType<RadioButton>()
+                          .FirstOrDefault(r => r.Checked);
+            if (checkedButton != null)
+                checkedButton.Checked = false;
+            cbbBallType.SelectedIndex = -1;
+            cbbColor.SelectedIndex = -1;
+            cbbPlayerType.SelectedIndex = -1;
+            cbbRefereeType.SelectedIndex = -1;
+            txbName.Text = "";
+            txbNumber.Text = "";
+            txbX.Text = "";
+            txbY.Text = "";
+            txbSelector.Text = "";
+        }
     }
 }

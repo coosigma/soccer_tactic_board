@@ -128,6 +128,7 @@
             this.txbX.Name = "txbX";
             this.txbX.Size = new System.Drawing.Size(56, 25);
             this.txbX.TabIndex = 0;
+            this.txbX.TextChanged += new System.EventHandler(this.txbX_TextChanged);
             // 
             // cbbPlayerType
             // 
@@ -195,6 +196,7 @@
             this.txbY.Name = "txbY";
             this.txbY.Size = new System.Drawing.Size(56, 25);
             this.txbY.TabIndex = 1;
+            this.txbY.TextChanged += new System.EventHandler(this.txbY_TextChanged);
             // 
             // lblColor
             // 
@@ -279,17 +281,19 @@
             this.btnClear.TabIndex = 14;
             this.btnClear.Text = "Clear Input";
             this.btnClear.UseVisualStyleBackColor = true;
+            this.btnClear.Click += new System.EventHandler(this.btnClear_Click);
             // 
             // txbNumber
             // 
             this.txbNumber.Location = new System.Drawing.Point(414, 585);
             this.txbNumber.Name = "txbNumber";
-            this.txbNumber.Size = new System.Drawing.Size(100, 25);
+            this.txbNumber.Size = new System.Drawing.Size(70, 25);
             this.txbNumber.TabIndex = 5;
+            this.txbNumber.TextChanged += new System.EventHandler(this.txbNumber_TextChanged);
             // 
             // txbName
             // 
-            this.txbName.Location = new System.Drawing.Point(535, 585);
+            this.txbName.Location = new System.Drawing.Point(515, 585);
             this.txbName.Name = "txbName";
             this.txbName.Size = new System.Drawing.Size(100, 25);
             this.txbName.TabIndex = 6;
@@ -307,7 +311,7 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
-            this.lblName.Location = new System.Drawing.Point(532, 552);
+            this.lblName.Location = new System.Drawing.Point(512, 552);
             this.lblName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(39, 15);

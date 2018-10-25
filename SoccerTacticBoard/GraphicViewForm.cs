@@ -413,7 +413,8 @@ namespace SoccerTacticBoard
             editPiece.Highlight = false;
         }
         /// <summary>Method: txtNumber_TextChanged
-        /// Treat when txtNumber TextChanged
+        /// Check the number of input must be a 
+        /// positive integer with maximum 2 digits
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -428,11 +429,11 @@ namespace SoccerTacticBoard
                 txtNumber.Text = text.Substring(0, 2);
             } else
             {
-                Match m = Regex.Match(text, @"\d{1,2}");
+                Match m = Regex.Match(text, @"\d{1,2}$");
                 while (!m.Success && text.Length > 0)
                 {
                     text = text.Substring(0, text.Length - 1);
-                    m = Regex.Match(text, @"\d{1,2}");
+                    m = Regex.Match(text, @"\d{1,2}$");
                 }
                 txtNumber.Text = text;
                 txtNumber.Select(text.Length, 0);
