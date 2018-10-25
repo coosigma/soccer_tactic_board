@@ -14,6 +14,9 @@ namespace SoccerTacticBoard
     public partial class TextViewForm : Form, IBoardView
     {
         private BoardModel model;
+        // variables for max values of parameters input by user
+        int max_X = 775;
+        int max_Y = 533;
         // set method for model
         public BoardModel Model
         {
@@ -65,6 +68,14 @@ namespace SoccerTacticBoard
             }
             int x = Convert.ToInt32(txbX.Text);
             int y = Convert.ToInt32(txbY.Text);
+            if (x > max_X || y > max_Y)
+            {
+                MessageBox.Show("Maximum value for X is " + max_X
+                + "\r\n" + "Maximum value for Y is " + max_Y + "\r\n",
+                "Please Check the Values Entered",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
             if (obj.Equals("Player"))
             {
                 string side = cbbPlayerType.Text;
@@ -187,6 +198,16 @@ namespace SoccerTacticBoard
             if (selector.Equals(o) && !obj.Equals("Ball"))
             {
                 MessageBox.Show("Please type in the selector.");
+                return;
+            }
+            int x = txbX.Text.Equals(string.Empty) ? 0 : Convert.ToInt32(txbX.Text);
+            int y = txbY.Text.Equals(string.Empty) ? 0 : Convert.ToInt32(txbY.Text);
+            if (x > max_X || y > max_Y)
+            {
+                MessageBox.Show("Maximum value for X is " + max_X
+                + "\r\n" + "Maximum value for Y is " + max_Y + "\r\n",
+                "Please Check the Values Entered",
+                MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             if (obj.Equals("Player"))
