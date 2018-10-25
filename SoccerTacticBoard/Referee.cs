@@ -93,6 +93,9 @@ namespace SoccerTacticBoard
             drawFont.Dispose();
             drawBrush.Dispose();
         }
+        /// <summary>Method: Whistle
+        /// Whistle
+        /// </summary>
         public void Whistle()
         {
             whistleSound.Play();

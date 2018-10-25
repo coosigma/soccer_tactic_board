@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
 using System.Collections;
+using System.Windows.Forms;
 
 namespace SoccerTacticBoard
     /// <summary>
@@ -152,6 +153,11 @@ namespace SoccerTacticBoard
         {
             controller.UpdateViews();
         }
+        /// <summary>Method: checkExceedMax
+        /// Check whether the count is exceed the maximum
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool checkExceedMax(string obj)
         {
             if (obj.Equals("home team"))
@@ -176,6 +182,43 @@ namespace SoccerTacticBoard
             }
             Console.WriteLine("Check Maximum Type Error.");
             return true; // type error cannot pass this check
+        }
+        /// <summary>Method: GetAPiece
+        /// Search and get a piece from the parameters
+        /// which are the selector from user input
+        /// If there isn't will return null
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="s1"></param>
+        /// <param name="s2"></param>
+        /// <returns></returns>
+        public APiece GetAPiece(Type type, string s1, int s2 = 0)
+        {
+            foreach (APiece ap in PieceList)
+            {
+                if (ap.GetType() != type)
+                    continue;
+                if (ap is Player)
+                {
+                    Player p = (Player)ap;
+                    string side = (p.IsHomeTeam) ? "home" : "away";
+                    if (s1.ToLower().Equals(side) && p.Number == s2)
+                        return p;
+                }
+                else if (ap is Ball)
+                {
+                    Ball b = (Ball)ap;
+                    if (s1.ToLower().Equals(b.Name.ToLower()))
+                        return b;
+                }
+                else if (ap is Referee)
+                {
+                    Referee r = (Referee)ap;
+                    if (s1.ToLower().Equals(r.Name.ToLower()))
+                        return r;
+                }
+            }
+            return null;
         }
     }
 }

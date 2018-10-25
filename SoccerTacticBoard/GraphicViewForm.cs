@@ -638,25 +638,9 @@ namespace SoccerTacticBoard
                 {
                     model.awayTeamCount--;
                 }
-                deletePiece(p);
+                model.DeletePiece(p);
                 editPiece = null;
             }
-        }
-        /// <summary>Method: deletePiece
-        /// Delete a piece from the piece list
-        /// </summary>
-        /// <param name="p"></param>
-        private void deletePiece(APiece p)
-        {
-            try
-            {
-                model.PieceList.Remove(p);
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            model.UpdateViews();
         }
         private DialogResult showWarningMessageBox(string message, string caption)
         {
@@ -789,7 +773,7 @@ namespace SoccerTacticBoard
                 }
                 try
                 {
-                    deletePiece(r);
+                    model.DeletePiece(r);
                 }
                 catch (Exception ex)
                 {
@@ -962,7 +946,7 @@ namespace SoccerTacticBoard
             {
                 try
                 {
-                    model.PieceList.Remove(editPiece);
+                    model.DeletePiece(editPiece);
                 }
                 catch (Exception ex)
                 {
@@ -970,7 +954,6 @@ namespace SoccerTacticBoard
                 }
                 editPiece = null;
                 model.ballCount = 0;
-                model.UpdateViews();
             }
         }
     }

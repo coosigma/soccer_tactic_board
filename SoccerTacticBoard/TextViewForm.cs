@@ -55,7 +55,7 @@ namespace SoccerTacticBoard
             string obj = checkedButton.Text;
             if (obj.Equals(o))
             {
-                MessageBox.Show("Please check the object first");
+                MessageBox.Show("Please select the object first");
                 return;
             }
             if (txbX.Text.Equals(o) || txbY.Text.Equals(o))
@@ -90,12 +90,22 @@ namespace SoccerTacticBoard
                 bool type;
                 if (side.Equals("Home"))
                 {
+                    if (model.checkExceedMax("home team"))
+                    {
+                        MessageBox.Show("The maximum of a team is "+model.max_team_players+". You cannot add any more.");
+                        return;
+                    }
                     c = model.homeTeamColor;
                     type = true;
                     model.homeTeamCount++;
                 }
                 else
                 {
+                    if (model.checkExceedMax("away team"))
+                    {
+                        MessageBox.Show("The maximum of a team is " + model.max_team_players + ". You cannot add any more.");
+                        return;
+                    }
                     c = model.awayTeamColor;
                     type = false;
                     model.awayTeamCount++;
@@ -108,6 +118,11 @@ namespace SoccerTacticBoard
                 if (cbbBallType.Text.Equals(o))
                 {
                     MessageBox.Show("Please type in the type of ball");
+                    return;
+                }
+                if (model.checkExceedMax("ball"))
+                {
+                    MessageBox.Show("The maximum of ball is " + model.max_ball + ". You cannot add any more.");
                     return;
                 }
                 string name = "Ball";
@@ -127,21 +142,180 @@ namespace SoccerTacticBoard
                 string ref_type;
                 if (cbbRefereeType.Text.Equals("Main"))
                 {
+                    if (model.checkExceedMax("main referee"))
+                    {
+                        MessageBox.Show("The maximum of main referee is " + model.max_main_referee + ". You cannot add any more.");
+                        return;
+                    }
+                    model.mainRefereeCount++;
                     name = "Referee";
                     ref_type = "R";
-                    model.mainRefereeCount++;
                 }
                 else
                 {
+                    if (model.checkExceedMax("assistant referee"))
+                    {
+                        MessageBox.Show("The maximum of assistant referee is " + model.max_assistant_referee + ". You cannot add any more.");
+                        return;
+                    }
+                    model.assistantRefereeCount++;
                     name = "Assistant Referee "+model.assistantRefereeCount;
                     ref_type = "A";
-                    model.assistantRefereeCount++;
                 }
                 Color c = Color.Black;
                 Referee referee = new Referee(name, x, y, model.pieceW, model.pieceH, c, ref_type);
                 model.AddPiece(referee);
             }
         }
-
+        /// <summary>Method: btnUpdate_Click
+        /// Update selected piece
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnUpdate_Click(object sender, EventArgs e)
+        {
+            string o = string.Empty;
+            var checkedButton = Controls.OfType<RadioButton>()
+                                      .FirstOrDefault(r => r.Checked);
+            string obj = checkedButton.Text;
+            if (obj.Equals(o))
+            {
+                MessageBox.Show("Please select the object first");
+                return;
+            }
+            string selector = txbSelector.Text;
+            if (selector.Equals(o) && !obj.Equals("Ball"))
+            {
+                MessageBox.Show("Please type in the selector.");
+                return;
+            }
+            if (obj.Equals("Player"))
+            {
+                string selected_side = string.Empty;
+                string selected_number = string.Empty;
+                string pattern = @"^(home|away) (\d+)$";
+                foreach (Match match in Regex.Matches(selector, pattern, RegexOptions.IgnoreCase))
+                {
+                    selected_side = match.Groups[1].Value;
+                    selected_number = match.Groups[2].Value;
+                }
+                if (selected_side == string.Empty || selected_number == string.Empty)
+                {
+                    MessageBox.Show("The selector of player should be Home/Away<space>Number.");
+                    return;
+                }
+                Player player = (Player)model.GetAPiece(typeof(Player), 
+                    selected_side.ToLower(), Convert.ToInt32(selected_number));
+                if (player == null)
+                {
+                    MessageBox.Show("Not Found the player.");
+                    return;
+                }
+                string name = txbName.Text;
+                if (!cbbColor.Text.Equals(o))
+                    player.Color = Color.FromName(cbbColor.Text);
+                if (!txbNumber.Text.Equals(o))
+                    player.Number = Convert.ToInt32(txbNumber.Text);
+                if (!txbName.Text.Equals(o))
+                    player.Name = txbName.Text;
+                if (!txbX.Text.Equals(o))
+                    player.x_pos = Convert.ToInt32(txbX.Text);
+                if (!txbY.Text.Equals(o))
+                    player.y_pos = Convert.ToInt32(txbY.Text);
+                model.BringToFront(player);
+            }
+            else if (obj.Equals("Ball"))
+            {
+                Ball ball = (Ball)model.GetAPiece(typeof(Ball), "Ball");
+                if (!txbX.Text.Equals(o))
+                    ball.x_pos = Convert.ToInt32(txbX.Text);
+                if (!txbY.Text.Equals(o))
+                    ball.y_pos = Convert.ToInt32(txbY.Text);
+                model.BringToFront(ball);
+            }
+            else if (obj.Equals("Referee"))
+            {
+                Referee referee = (Referee)model.GetAPiece(typeof(Referee), selector);
+                if (referee == null)
+                {
+                    MessageBox.Show("Not Found the referee. You can check the selector example above the textbox.");
+                    return;
+                }
+                if (!txbX.Text.Equals(o))
+                    referee.x_pos = Convert.ToInt32(txbX.Text);
+                if (!txbY.Text.Equals(o))
+                    referee.y_pos = Convert.ToInt32(txbY.Text);
+                model.BringToFront(referee);
+            }
+            model.UpdateViews();
+        }
+        /// <summary>Method: btnDelete_Click
+        /// Delete the selected piece
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            string o = string.Empty;
+            var checkedButton = Controls.OfType<RadioButton>()
+                                      .FirstOrDefault(r => r.Checked);
+            string obj = checkedButton.Text;
+            if (obj.Equals(o))
+            {
+                MessageBox.Show("Please select the object first");
+                return;
+            }
+            string selector = txbSelector.Text;
+            if (selector.Equals(o) && !obj.Equals("Ball"))
+            {
+                MessageBox.Show("Please type in the selector.");
+                return;
+            }
+            if (obj.Equals("Player"))
+            {
+                string selected_side = string.Empty;
+                string selected_number = string.Empty;
+                string pattern = @"^(home|away) (\d+)$";
+                foreach (Match match in Regex.Matches(selector, pattern, RegexOptions.IgnoreCase))
+                {
+                    selected_side = match.Groups[1].Value;
+                    selected_number = match.Groups[2].Value;
+                }
+                if (selected_side == string.Empty || selected_number == string.Empty)
+                {
+                    MessageBox.Show("The selector of player should be Home/Away<space>Number.");
+                    return;
+                }
+                Player player = (Player)model.GetAPiece(typeof(Player),
+                    selected_side.ToLower(), Convert.ToInt32(selected_number));
+                if (player == null)
+                {
+                    MessageBox.Show("Not Found the player.");
+                    return;
+                }
+                model.DeletePiece(player);
+            }
+            else if (obj.Equals("Ball"))
+            {
+                Ball ball = (Ball)model.GetAPiece(typeof(Ball), "Ball");
+                if (ball == null)
+                {
+                    MessageBox.Show("Not Found the ball.");
+                    return;
+                }
+                model.DeletePiece(ball);
+            }
+            else if (obj.Equals("Referee"))
+            {
+                Referee referee = (Referee)model.GetAPiece(typeof(Referee), selector);
+                if (referee == null)
+                {
+                    MessageBox.Show("Not Found the referee. You can check the selector example above the textbox.");
+                    return;
+                }
+                model.DeletePiece(referee);
+            }
+            model.UpdateViews();
+        }
     }
 }

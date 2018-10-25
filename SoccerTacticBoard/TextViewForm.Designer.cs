@@ -63,7 +63,7 @@
             this.pnlDrawOn.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.pnlDrawOn.Name = "pnlDrawOn";
             this.pnlDrawOn.Size = new System.Drawing.Size(751, 452);
-            //this.pnlDrawOn.TabIndex = 0;
+            this.pnlDrawOn.TabIndex = 20;
             // 
             // lsbLog
             // 
@@ -73,7 +73,7 @@
             this.lsbLog.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.lsbLog.Name = "lsbLog";
             this.lsbLog.Size = new System.Drawing.Size(645, 409);
-            //this.lsbLog.TabIndex = 0;
+            this.lsbLog.TabIndex = 0;
             // 
             // rdbPlayer
             // 
@@ -118,6 +118,7 @@
             this.lblType.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblType.Name = "lblType";
             this.lblType.Size = new System.Drawing.Size(39, 15);
+            this.lblType.TabIndex = 19;
             this.lblType.Text = "Type";
             // 
             // txbX
@@ -174,6 +175,7 @@
             this.lblX.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblX.Name = "lblX";
             this.lblX.Size = new System.Drawing.Size(15, 15);
+            this.lblX.TabIndex = 18;
             this.lblX.Text = "X";
             // 
             // lblY
@@ -183,6 +185,7 @@
             this.lblY.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblY.Name = "lblY";
             this.lblY.Size = new System.Drawing.Size(15, 15);
+            this.lblY.TabIndex = 17;
             this.lblY.Text = "Y";
             // 
             // txbY
@@ -200,6 +203,7 @@
             this.lblColor.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblColor.Name = "lblColor";
             this.lblColor.Size = new System.Drawing.Size(95, 15);
+            this.lblColor.TabIndex = 16;
             this.lblColor.Text = "Team Colour";
             // 
             // cbbColor
@@ -218,15 +222,16 @@
             // 
             // lblSelector
             // 
-            this.lblSelector.Location = new System.Drawing.Point(281, 634);
+            this.lblSelector.Location = new System.Drawing.Point(281, 625);
             this.lblSelector.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSelector.Name = "lblSelector";
-            this.lblSelector.Size = new System.Drawing.Size(386, 38);
-            this.lblSelector.Text = "Selector\r\n(e.g. \"Home 1\", \"Assistant Referee 1\", \"Ball\")";
+            this.lblSelector.Size = new System.Drawing.Size(247, 53);
+            this.lblSelector.TabIndex = 15;
+            this.lblSelector.Text = "Selector\r\n(e.g. \"Home 1\", \"Referee\", \"Assistant Referee 1\")";
             // 
             // txbSelector
             // 
-            this.txbSelector.Location = new System.Drawing.Point(287, 684);
+            this.txbSelector.Location = new System.Drawing.Point(284, 684);
             this.txbSelector.Margin = new System.Windows.Forms.Padding(4);
             this.txbSelector.Name = "txbSelector";
             this.txbSelector.Size = new System.Drawing.Size(132, 25);
@@ -252,6 +257,7 @@
             this.btnUpdate.TabIndex = 12;
             this.btnUpdate.Text = "Update";
             this.btnUpdate.UseVisualStyleBackColor = true;
+            this.btnUpdate.Click += new System.EventHandler(this.btnUpdate_Click);
             // 
             // btnDelete
             // 
@@ -262,6 +268,7 @@
             this.btnDelete.TabIndex = 13;
             this.btnDelete.Text = "Delete";
             this.btnDelete.UseVisualStyleBackColor = true;
+            this.btnDelete.Click += new System.EventHandler(this.btnDelete_Click);
             // 
             // btnClear
             // 
@@ -294,6 +301,7 @@
             this.lblNumber.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNumber.Name = "lblNumber";
             this.lblNumber.Size = new System.Drawing.Size(55, 15);
+            this.lblNumber.TabIndex = 1;
             this.lblNumber.Text = "Number";
             // 
             // lblName
@@ -303,6 +311,7 @@
             this.lblName.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(39, 15);
+            this.lblName.TabIndex = 0;
             this.lblName.Text = "Name";
             // 
             // TextViewForm
@@ -337,6 +346,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TextViewForm";
             this.Text = "TextViewForm";
+            this.TopMost = true;
             this.pnlDrawOn.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
