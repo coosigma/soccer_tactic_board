@@ -103,7 +103,7 @@ namespace SoccerTacticBoard
             // create main referee
             mainRefereeToolStripMenuItem.Enabled = model.checkExceedMax("main referee") ? false : true;
             // create assistant referee
-            mainRefereeToolStripMenuItem.Enabled = model.checkExceedMax("assistant referee") ? false : true;
+            assistantRefereeToolStripMenuItem.Enabled = model.checkExceedMax("assistant referee") ? false : true;
 
             // creat ball
             ballToolStripMenuItem.Enabled = model.checkExceedMax("ball") ? false : true;
