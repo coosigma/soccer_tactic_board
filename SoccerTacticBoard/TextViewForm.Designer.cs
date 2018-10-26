@@ -350,7 +350,6 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "TextViewForm";
             this.Text = "TextViewForm";
-            this.TopMost = true;
             this.pnlDrawOn.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

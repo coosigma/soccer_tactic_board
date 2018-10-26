@@ -60,8 +60,6 @@ namespace SoccerTacticBoard
             filterViewForm.Show();
             textViewForm.Show();
             graphicViewForm.Show();
-            graphicViewForm.BringToFront();
-            graphicViewForm.Activate();
         }
     }
 }
