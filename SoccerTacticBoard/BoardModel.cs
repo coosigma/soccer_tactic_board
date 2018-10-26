@@ -220,5 +220,14 @@ namespace SoccerTacticBoard
             }
             return null;
         }
+        public void clearTheGame()
+        {
+            pieceList.Clear();
+            homeTeamCount = 0; // Clear the number of the home team
+            awayTeamCount = 0; // Clear the number of the away team
+            mainRefereeCount = 0; // Clear the number of main referee
+            assistantRefereeCount = 0; // Clear the number of assistant referee
+            ballCount = 0; // Clear the number of ball
+        }
     }
 }

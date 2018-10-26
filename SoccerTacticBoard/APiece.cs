@@ -8,6 +8,10 @@ using System.Drawing.Drawing2D;
 
 namespace SoccerTacticBoard
 {
+    /// <summary>Abstract class APiece
+    /// Abstract class of Piece
+    /// </summary>
+    [Serializable]
     public abstract class APiece
     {
         protected string name;

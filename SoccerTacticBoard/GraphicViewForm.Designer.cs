@@ -41,6 +41,8 @@
             this.homeTeamToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.awayTeamToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.ballToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.whiteFootballToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.orangeFootBallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.refereeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainRefereeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.assistantRefereeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,16 +67,24 @@
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteAllRefereesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.cmsBall = new System.Windows.Forms.ContextMenuStrip(this.components);
-            this.whiteFootballToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.orangeFootBallToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.whiteToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.orangeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
             this.deleteToolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
+            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.cmsField.SuspendLayout();
             this.cmsPlayer.SuspendLayout();
             this.cmsReferee.SuspendLayout();
             this.cmsBall.SuspendLayout();
+            this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
             // pnlField
@@ -118,7 +128,7 @@
             this.homeTeamToolStripMenuItem,
             this.awayTeamToolStripMenuItem});
             this.teamToolStripMenuItem.Name = "teamToolStripMenuItem";
-            this.teamToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.teamToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.teamToolStripMenuItem.Text = "Team";
             // 
             // homeTeamToolStripMenuItem
@@ -138,7 +148,7 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(213, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(138, 6);
             // 
             // playerToolStripMenuItem
             // 
@@ -146,7 +156,7 @@
             this.homeTeamToolStripMenuItem1,
             this.awayTeamToolStripMenuItem1});
             this.playerToolStripMenuItem.Name = "playerToolStripMenuItem";
-            this.playerToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.playerToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.playerToolStripMenuItem.Text = "Player";
             // 
             // homeTeamToolStripMenuItem1
@@ -169,8 +179,22 @@
             this.whiteFootballToolStripMenuItem,
             this.orangeFootBallToolStripMenuItem});
             this.ballToolStripMenuItem.Name = "ballToolStripMenuItem";
-            this.ballToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.ballToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.ballToolStripMenuItem.Text = "Ball";
+            // 
+            // whiteFootballToolStripMenuItem
+            // 
+            this.whiteFootballToolStripMenuItem.Name = "whiteFootballToolStripMenuItem";
+            this.whiteFootballToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.whiteFootballToolStripMenuItem.Text = "White Football";
+            this.whiteFootballToolStripMenuItem.Click += new System.EventHandler(this.whiteFootballToolStripMenuItem_Click);
+            // 
+            // orangeFootBallToolStripMenuItem
+            // 
+            this.orangeFootBallToolStripMenuItem.Name = "orangeFootBallToolStripMenuItem";
+            this.orangeFootBallToolStripMenuItem.Size = new System.Drawing.Size(201, 26);
+            this.orangeFootBallToolStripMenuItem.Text = "Orange FootBall";
+            this.orangeFootBallToolStripMenuItem.Click += new System.EventHandler(this.orangeFootBallToolStripMenuItem_Click);
             // 
             // refereeToolStripMenuItem
             // 
@@ -178,7 +202,7 @@
             this.mainRefereeToolStripMenuItem,
             this.assistantRefereeToolStripMenuItem});
             this.refereeToolStripMenuItem.Name = "refereeToolStripMenuItem";
-            this.refereeToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.refereeToolStripMenuItem.Size = new System.Drawing.Size(141, 26);
             this.refereeToolStripMenuItem.Text = "Referee";
             // 
             // mainRefereeToolStripMenuItem
@@ -200,7 +224,7 @@
             this.viewToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.namesToolStripMenuItem});
             this.viewToolStripMenuItem.Name = "viewToolStripMenuItem";
-            this.viewToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.viewToolStripMenuItem.Size = new System.Drawing.Size(126, 24);
             this.viewToolStripMenuItem.Text = "View";
             // 
             // namesToolStripMenuItem
@@ -359,56 +383,105 @@
             this.toolStripMenuItem5,
             this.deleteToolStripMenuItem2});
             this.cmsBall.Name = "cmsBall";
-            this.cmsBall.Size = new System.Drawing.Size(211, 110);
-            // 
-            // whiteFootballToolStripMenuItem
-            // 
-            this.whiteFootballToolStripMenuItem.Name = "whiteFootballToolStripMenuItem";
-            this.whiteFootballToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.whiteFootballToolStripMenuItem.Text = "White Football";
-            this.whiteFootballToolStripMenuItem.Click += new System.EventHandler(this.whiteFootballToolStripMenuItem_Click);
-            // 
-            // orangeFootBallToolStripMenuItem
-            // 
-            this.orangeFootBallToolStripMenuItem.Name = "orangeFootBallToolStripMenuItem";
-            this.orangeFootBallToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
-            this.orangeFootBallToolStripMenuItem.Text = "Orange FootBall";
-            this.orangeFootBallToolStripMenuItem.Click += new System.EventHandler(this.orangeFootBallToolStripMenuItem_Click);
+            this.cmsBall.Size = new System.Drawing.Size(133, 82);
             // 
             // whiteToolStripMenuItem
             // 
             this.whiteToolStripMenuItem.Name = "whiteToolStripMenuItem";
-            this.whiteToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.whiteToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
             this.whiteToolStripMenuItem.Text = "White";
             this.whiteToolStripMenuItem.Click += new System.EventHandler(this.whiteToolStripMenuItem_Click);
             // 
             // orangeToolStripMenuItem
             // 
             this.orangeToolStripMenuItem.Name = "orangeToolStripMenuItem";
-            this.orangeToolStripMenuItem.Size = new System.Drawing.Size(210, 24);
+            this.orangeToolStripMenuItem.Size = new System.Drawing.Size(132, 24);
             this.orangeToolStripMenuItem.Text = "Orange";
             this.orangeToolStripMenuItem.Click += new System.EventHandler(this.orangeToolStripMenuItem_Click);
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(207, 6);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(129, 6);
             // 
             // deleteToolStripMenuItem2
             // 
             this.deleteToolStripMenuItem2.Name = "deleteToolStripMenuItem2";
-            this.deleteToolStripMenuItem2.Size = new System.Drawing.Size(210, 24);
+            this.deleteToolStripMenuItem2.Size = new System.Drawing.Size(132, 24);
             this.deleteToolStripMenuItem2.Text = "Delete";
             this.deleteToolStripMenuItem2.Click += new System.EventHandler(this.deleteToolStripMenuItem2_Click);
+            // 
+            // menuStrip1
+            // 
+            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileToolStripMenuItem});
+            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip1.Name = "menuStrip1";
+            this.menuStrip1.Size = new System.Drawing.Size(1087, 28);
+            this.menuStrip1.TabIndex = 4;
+            this.menuStrip1.Text = "menuStrip1";
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.newToolStripMenuItem,
+            this.openToolStripMenuItem,
+            this.saveToolStripMenuItem,
+            this.toolStripMenuItem6,
+            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // newToolStripMenuItem
+            // 
+            this.newToolStripMenuItem.Name = "newToolStripMenuItem";
+            this.newToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.newToolStripMenuItem.Text = "New";
+            this.newToolStripMenuItem.Click += new System.EventHandler(this.newToolStripMenuItem_Click);
+            // 
+            // openToolStripMenuItem
+            // 
+            this.openToolStripMenuItem.Name = "openToolStripMenuItem";
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // saveToolStripMenuItem
+            // 
+            this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem6
+            // 
+            this.toolStripMenuItem6.Name = "toolStripMenuItem6";
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(213, 6);
+            // 
+            // exitToolStripMenuItem
+            // 
+            this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(216, 26);
+            this.exitToolStripMenuItem.Text = "Exit";
+            this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
+            // 
+            // openFileDialog1
+            // 
+            //this.openFileDialog1.ShowHelp = true;
+            this.openFileDialog1.FileName = "";
             // 
             // GraphicViewForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1087, 749);
+            this.Controls.Add(this.menuStrip1);
             this.Controls.Add(this.txtName);
             this.Controls.Add(this.txtNumber);
             this.Controls.Add(this.pnlField);
+            this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(4);
             this.Name = "GraphicViewForm";
             this.Text = "GraphicViewForm";
@@ -417,9 +490,11 @@
             this.cmsPlayer.ResumeLayout(false);
             this.cmsReferee.ResumeLayout(false);
             this.cmsBall.ResumeLayout(false);
+            this.menuStrip1.ResumeLayout(false);
+            this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-            this.TopMost = true;
+
         }
 
         #endregion
@@ -465,5 +540,14 @@
         private System.Windows.Forms.ToolStripMenuItem orangeToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
         private System.Windows.Forms.ToolStripMenuItem deleteToolStripMenuItem2;
+        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.OpenFileDialog openFileDialog1;
     }
 }

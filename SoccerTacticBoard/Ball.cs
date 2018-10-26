@@ -11,6 +11,7 @@ namespace SoccerTacticBoard
     /// <summary>class Ball : APiece
     /// The class describes Ball piece
     /// </summary>
+    [Serializable]
     class Ball : APiece
     {
         public enum ImageType { White, Orange};

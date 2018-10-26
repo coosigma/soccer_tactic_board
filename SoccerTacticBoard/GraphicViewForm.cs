@@ -11,6 +11,9 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
 using static SoccerTacticBoard.Ball;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
+using System.Threading;
 
 namespace SoccerTacticBoard
 {
@@ -25,6 +28,8 @@ namespace SoccerTacticBoard
         // variables for mouse position
         Point lastPosition = new Point(0, 0);
         Point currentPosition = new Point(0, 0);
+        // For Serialisation
+        BinaryFormatter binFor;
         // set method for model
         public BoardModel Model
         {
@@ -862,6 +867,7 @@ namespace SoccerTacticBoard
         {
             SoundPlayer sndVoid = new SoundPlayer(SoccerTacticBoard.Properties.Resources.Void);
             sndVoid.Play();
+            binFor = new BinaryFormatter();
         }
         /// <summary>Method: whiteFootballToolStripMenuItem_Click
         /// Create a white ball
@@ -955,6 +961,108 @@ namespace SoccerTacticBoard
                 }
                 editPiece = null;
                 model.ballCount = 0;
+            }
+        }
+        /// <summary>Method: exitToolStripMenuItem_Click
+        /// Close the form
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void exitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = "Do you really want to exit this game?";
+            String caption = "Confirm";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show(this, message, caption, buttons);
+            if (result == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+        }
+        /// <summary>Method: saveToolStripMenuItem_Click
+        /// Save the game to file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+                ThreadStart childref = new ThreadStart(writeToFile);
+                Thread writeThread = new Thread(childref);
+                writeThread.Start();
+            }
+        }
+        private void writeToFile()
+        {
+            FileInfo finfo = new FileInfo(saveFileDialog1.FileName);
+            try
+            {
+                Stream strm = finfo.Open(FileMode.Create, FileAccess.ReadWrite);
+                foreach (APiece ap in model.PieceList)
+                {
+                    binFor.Serialize(strm, ap);
+                }
+                strm.Close();
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("The file is being used by another program.");
+            }
+        }
+        /// <summary>Method: openToolStripMenuItem_Click
+        /// Open a game from file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = "Do you really want to open a game from a file? It will clear this game.";
+            String caption = "Confirm";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show(this, message, caption, buttons);
+            if (result == DialogResult.Yes)
+            {
+                if (openFileDialog1.ShowDialog() == DialogResult.OK)
+                {
+                    model.clearTheGame();
+                    FileInfo finfo = new FileInfo(openFileDialog1.FileName);
+                    Stream strm = finfo.Open(FileMode.Open);
+                    while (strm.Position != strm.Length)
+                    {
+                        model.PieceList.Add(binFor.Deserialize(strm));
+                    }
+                    model.UpdateViews();
+                }
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                return;
+            }
+        }
+        /// <summary>Method: newToolStripMenuItem_Click
+        /// Start a new game
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void newToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            string message = "Do you really want to open a new game? It will clear this game.";
+            String caption = "Confirm";
+            MessageBoxButtons buttons = MessageBoxButtons.YesNo;
+            DialogResult result = MessageBox.Show(this, message, caption, buttons);
+            if (result == DialogResult.Yes)
+            {
+                model.clearTheGame();
+                model.UpdateViews();
+            }
+            else if (result == DialogResult.Cancel)
+            {
+                return;
             }
         }
     }

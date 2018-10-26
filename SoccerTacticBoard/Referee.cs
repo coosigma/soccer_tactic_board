@@ -13,9 +13,11 @@ namespace SoccerTacticBoard
     /// <summary>class Referee : APiece
     /// The class describes Referee piece
     /// </summary>
+    [Serializable]
     class Referee : APiece
     {
         private string type; // Referee type (R = Main Referee, A = Assistant Referee)
+        [NonSerialized]
         private SoundPlayer whistleSound = new SoundPlayer(Properties.Resources.whistle);
         /// <summary>
         /// Constructor

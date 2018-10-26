@@ -11,6 +11,7 @@ namespace SoccerTacticBoard
     /// <summary>class Player : APiece
     /// The class describes Player piece
     /// </summary>
+    [Serializable]
     class Player : APiece
     {
         private int number; // The number of the player
