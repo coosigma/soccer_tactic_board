@@ -984,7 +984,7 @@ namespace SoccerTacticBoard
             }
         }
         /// <summary>Method: saveToolStripMenuItem_Click
-        /// Save the game to file
+        /// Save the game to file (Using multithreading)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -997,6 +997,9 @@ namespace SoccerTacticBoard
                 writeThread.Start();
             }
         }
+        /// <summary>Method: writeToFile
+        /// Serialize the pieces and wirte them to file
+        /// </summary>
         private void writeToFile()
         {
             FileInfo finfo = new FileInfo(saveFileDialog1.FileName);
