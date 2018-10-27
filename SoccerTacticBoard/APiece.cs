@@ -106,18 +106,6 @@ namespace SoccerTacticBoard
 
         public abstract string Name //abstract property
         { get; set; }
-
-        /// <summary> virtual method: DebutTest
-        /// Test the piece whether in the field or not
-        /// </summary>
-        /// <param name="field"></param>
-        /// <returns></returns>
-        public virtual bool DebutTest(Rectangle field)
-        {
-            Point pt = new Point(x+(width/2), y+(height/2));
-            //default behaviour
-            return field.Contains(pt);
-        }
         /// <summary>virtual method: HitTest
         /// Test whether the mouse in hit the piece
         /// </summary>
