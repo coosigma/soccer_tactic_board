@@ -55,12 +55,12 @@ namespace SoccerTacticBoard
             string o = string.Empty;
             var checkedButton = Controls.OfType<RadioButton>()
                                       .FirstOrDefault(r => r.Checked);
-            string obj = checkedButton.Text;
-            if (obj.Equals(o))
+            if (checkedButton == null)
             {
                 MessageBox.Show("Please select the object first");
                 return;
             }
+            string obj = checkedButton.Text;
             if (txbX.Text.Equals(o) || txbY.Text.Equals(o))
             {
                 MessageBox.Show("Please type in the position of X and Y");
@@ -188,12 +188,12 @@ namespace SoccerTacticBoard
             string o = string.Empty;
             var checkedButton = Controls.OfType<RadioButton>()
                                       .FirstOrDefault(r => r.Checked);
-            string obj = checkedButton.Text;
-            if (obj.Equals(o))
+            if (checkedButton == null)
             {
                 MessageBox.Show("Please select the object first");
                 return;
             }
+            string obj = checkedButton.Text;
             string selector = txbSelector.Text;
             if (selector.Equals(o) && !obj.Equals("Ball"))
             {
@@ -252,6 +252,10 @@ namespace SoccerTacticBoard
                     ball.x_pos = Convert.ToInt32(txbX.Text);
                 if (!txbY.Text.Equals(o))
                     ball.y_pos = Convert.ToInt32(txbY.Text);
+                if(!cbbBallType.Text.Equals(""))
+                {
+                    ball.BallImage = cbbBallType.Text.Equals("White")? Ball.ImageType.White : Ball.ImageType.Orange;
+                }                    
                 model.BringToFront(ball);
             }
             else if (obj.Equals("Referee"))
@@ -280,12 +284,12 @@ namespace SoccerTacticBoard
             string o = string.Empty;
             var checkedButton = Controls.OfType<RadioButton>()
                                       .FirstOrDefault(r => r.Checked);
-            string obj = checkedButton.Text;
-            if (obj.Equals(o))
+            if (checkedButton == null)
             {
                 MessageBox.Show("Please select the object first");
                 return;
             }
+            string obj = checkedButton.Text;
             string selector = txbSelector.Text;
             if (selector.Equals(o) && !obj.Equals("Ball"))
             {

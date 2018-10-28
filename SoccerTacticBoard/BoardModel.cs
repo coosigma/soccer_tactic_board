@@ -88,6 +88,26 @@ namespace SoccerTacticBoard
         /// <param name="aPiece"></param>
         public void DeletePiece(APiece aPiece)
         {
+            if (aPiece is Player)
+            {
+                Player p = (Player)aPiece;
+                if (p.IsHomeTeam)
+                    homeTeamCount--;
+                else
+                    awayTeamCount--;
+            }
+            else if (aPiece is Ball)
+            {
+                ballCount--;
+            }
+            else if (aPiece is Referee)
+            {
+                Referee r = (Referee)aPiece;
+                if (r.Type.Equals("R"))
+                    mainRefereeCount--;
+                else
+                    assistantRefereeCount--;
+            }        
             pieceList.Remove(aPiece);
             UpdateViews();
         }

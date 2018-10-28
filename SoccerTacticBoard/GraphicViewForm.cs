@@ -99,16 +99,25 @@ namespace SoccerTacticBoard
             homeTeamToolStripMenuItem1.Enabled = model.checkExceedMax("home team") ? false : true;
             // create player : away team
             awayTeamToolStripMenuItem1.Enabled = model.checkExceedMax("away team") ? false : true;
+            // Parent item:
+            playerToolStripMenuItem.Enabled = (homeTeamToolStripMenuItem1.Enabled
+                || awayTeamToolStripMenuItem1.Enabled) ? true : false;
 
             // create home team
             homeTeamToolStripMenuItem.Enabled = (model.homeTeamCount < 1) ? true : false;
             // create away team
             awayTeamToolStripMenuItem.Enabled = (model.awayTeamCount < 1) ? true : false;
+            // Parent item:
+            teamToolStripMenuItem.Enabled = (homeTeamToolStripMenuItem.Enabled
+                || awayTeamToolStripMenuItem.Enabled) ? true : false;
 
             // create main referee
             mainRefereeToolStripMenuItem.Enabled = model.checkExceedMax("main referee") ? false : true;
             // create assistant referee
             assistantRefereeToolStripMenuItem.Enabled = model.checkExceedMax("assistant referee") ? false : true;
+            // Parent item:
+            refereeToolStripMenuItem.Enabled = (mainRefereeToolStripMenuItem.Enabled
+                || assistantRefereeToolStripMenuItem.Enabled) ? true : false;
 
             // creat ball
             ballToolStripMenuItem.Enabled = model.checkExceedMax("ball") ? false : true;
